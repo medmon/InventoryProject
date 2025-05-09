@@ -4,6 +4,8 @@
 
 #define LOCTEXT_NAMESPACE "FJJ_InventoryModule"
 
+DEFINE_LOG_CATEGORY(LogInventory);
+
 void FJJ_InventoryModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
