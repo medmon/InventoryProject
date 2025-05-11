@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "JJ_Inventory.h"
+#include "Interaction/INV_Highlightable.h"
 #include "Items/Components/INV_ItemComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Widgets/HUD/INV_HUDWidget.h"
@@ -94,7 +95,13 @@ void AINV_PlayerController::TraceForItem()
 
 	if (ThisActor.IsValid())
 	{
+		if(UActorComponent* Highlightable = ThisActor->FindComponentByInterface(UINV_Highlightable::StaticClass()); IsValid(Highlightable))
+		{
+			IINV_Highlightable::Execute_Highlight(Highlightable);
+		}
+		
 		UE_LOG(LogTemp, Warning, TEXT("Started tracing a new actor"));
+
 		UINV_ItemComponent* ItemComponent = ThisActor->FindComponentByClass<UINV_ItemComponent>();
 		if (!IsValid(ItemComponent)) return;
 
@@ -104,6 +111,12 @@ void AINV_PlayerController::TraceForItem()
 
 	if (LastActor.IsValid())
 	{
+		if(UActorComponent* Highlightable = LastActor->FindComponentByInterface(UINV_Highlightable::StaticClass()); IsValid(Highlightable))
+		{
+			IINV_Highlightable::Execute_UnHighlight(Highlightable);
+		}
+
+		
 		UE_LOG(LogTemp, Warning, TEXT("Stopped tracing Last Actor"));	
 	}
 		
