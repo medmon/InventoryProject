@@ -16,15 +16,20 @@ UCLASS()
 class JJ_INVENTORY_API AINV_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
-
+public:
+	AINV_PlayerController();
+	virtual void Tick(float DeltaTime) override;
+	
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
+
 	
 private:
 
 	void PrimaryInteract();
 	void CreateHUDWidget();
+	void TraceForItem();
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Inventory | Input")
 	TObjectPtr<UInputMappingContext> DefaultIMC;
@@ -38,4 +43,13 @@ private:
 	UPROPERTY()
 	TObjectPtr<UINV_HUDWidget> HUDWidget;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
+	double TraceLength;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
+	TEnumAsByte<ECollisionChannel> ItemTraceChannel;
+
+	TWeakObjectPtr<AActor> ThisActor;
+	TWeakObjectPtr<AActor> LastActor;
+	
 };
