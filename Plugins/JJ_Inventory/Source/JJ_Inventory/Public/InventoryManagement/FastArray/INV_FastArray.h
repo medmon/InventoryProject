@@ -36,7 +36,7 @@ public:
 	FINV_InventoryFastArray() : OwnerComponent(nullptr) {}
 	FINV_InventoryFastArray(UActorComponent* InOwnerComponent) : OwnerComponent(InOwnerComponent) {}
 
-	TArray<UINV_InventoryItem> GetAllItems() const;
+	TArray<UINV_InventoryItem*> GetAllItems() const;
 
 	// FFastArraySerializer Contract
 	void PreReplicatedRemove(const TArrayView<int32> RemovedIndices, int32 FinalSize);
@@ -55,7 +55,7 @@ public:
 private:
 	friend UINV_InventoryComponent;
 	
-	/** Replicated list of items*/()
+	/** Replicated list of items */
 	UPROPERTY()
 	TArray<FINV_InventoryEntry> Entries;
 	
