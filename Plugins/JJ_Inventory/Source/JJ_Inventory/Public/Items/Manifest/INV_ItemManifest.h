@@ -20,11 +20,15 @@ struct JJ_INVENTORY_API FINV_ItemManifest
 {
  GENERATED_BODY()
 
+public:
+
  UINV_InventoryItem* Manifest(UObject* NewOuter);
  EINV_ItemCategory GetItemCategory() const { return ItemCategory; }
  FGameplayTag GetItemType() const { return ItemType; }
- 
- 
+
+ template<typename T> requires std::derived_from<T, FINV_ItemFragment>
+ const T* GetFragmentOfTypeWithTag(const FGameplayTag& FragmentTag) const;
+  
 private:
 
  UPROPERTY(EditAnywhere, Category = "Inventory", meta = (ExcludeBaseStruct))
@@ -38,4 +42,22 @@ private:
  
 };
 
+template<typename T>
+requires std::derived_from<T, FINV_ItemFragment>
+const T* FINV_ItemManifest::GetFragmentOfTypeWithTag(const FGameplayTag& FragmentTag) const
+{
+   for (const TInstancedStruct<FINV_ItemFragment>& Fragment : Fragments)
+   {
+       if (const T* FragmentPtr = Fragment.GetPtr<T>())
+       {
+          if (FragmentPtr->GetFragmentTag() == FragmentTag)
+          {
+             if (!FragmentPtr->GetFragmentTag().MatchesTagExact(FragmentTag)) continue;
+             return FragmentPtr;
+          }
+       }
+   }
+ 
+ return nullptr;
+}
 

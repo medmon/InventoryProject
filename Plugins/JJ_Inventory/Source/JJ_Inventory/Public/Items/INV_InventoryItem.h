@@ -22,6 +22,7 @@ public:
 	void SetItemManifest(const FINV_ItemManifest& Manifest);
 	const FINV_ItemManifest& GetItemManifest() const { return ItemManifest.Get<FINV_ItemManifest>(); }
 	FINV_ItemManifest& GetItemManifestMutable() { return ItemManifest.GetMutable<FINV_ItemManifest>(); }
+
 	bool IsStackable() const;
 	int32 GetTotalStackCount() const { return TotalStackCount; }
 	void SetTotalStackCount(int32 Count) { TotalStackCount = Count; }private:
@@ -35,3 +36,11 @@ private:
 
 	
 };
+
+template<typename FragmentType>
+const FragmentType* GetFragment(const UINV_InventoryItem* Item, const FGameplayTag& Tag)
+{
+	const auto& Manifest = Item->GetItemManifest();
+
+	return Manifest.GetFragmentOfTypeWithTag<FragmentType>(Tag);
+}

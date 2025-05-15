@@ -10,6 +10,8 @@
 #include "InventoryManagement/Utils/INV_InventoryStatics.h"
 #include "Items/INV_InventoryItem.h"
 #include "Items/Components/INV_ItemComponent.h"
+#include "Items/Fragments/INV_FragmentTags.h"
+#include "Items/Fragments/INV_ItemFragment.h"
 #include "Widgets/Inventory/GridSlots/INV_GridSlot.h"
 #include "Widgets/Utils/INV_WidgetUtils.h"
 
@@ -64,8 +66,11 @@ void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)
 
 void UINV_InventoryGrid::AddItemToIndices(const FINV_SlotAvailabilityResult& Result, UINV_InventoryItem* NewItem)
 {
-	//TODO: Get grid fragment so we know how many grid spaces the item takes
-	// Get Image Fragment so we have the icon to display
+const FINV_GridFragment* GridFragment = GetFragment<FINV_GridFragment>(NewItem, FragmentTags::GridFragment);
+const FINV_ImageFragment* ImageFragment = GetFragment<FINV_ImageFragment>(NewItem, FragmentTags::IconFragment);
+	if (!GridFragment || !ImageFragment) return;
+
+	
 	// Create a widget to add to the grid
 	// store the new widget in a container
 }
