@@ -38,7 +38,16 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const UINV_Invent
 
 FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemManifest& Manifest) const
 {
-	return FINV_SlotAvailabilityResult();
+	FINV_SlotAvailabilityResult Result; 
+	
+	FINV_SlotAvailability SlotAvailability;
+	SlotAvailability.AmountToFill = 1;
+	SlotAvailability.Index = 0;
+
+	Result.SlotAvailabilities.Add(SlotAvailability);
+		
+	
+	return Result;
 }
 
 void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)
@@ -47,10 +56,18 @@ void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)
 
 	FINV_SlotAvailabilityResult Result = HasRoomForItem(Item);
 
-	//Create a widget to show the item icon and add it to the correct spot on the grid
+	AddItemToIndices(Result, Item);
 	
 	FString GridName = this->GetName();	
 	UE_LOG(LogTemp, Warning, TEXT("InventoryGrid::AddItem - %s"), *GridName);
+}
+
+void UINV_InventoryGrid::AddItemToIndices(const FINV_SlotAvailabilityResult& Result, UINV_InventoryItem* NewItem)
+{
+	//TODO: Get grid fragment so we know how many grid spaces the item takes
+	// Get Image Fragment so we have the icon to display
+	// Create a widget to add to the grid
+	// store the new widget in a container
 }
 
 void UINV_InventoryGrid::ConstructGrid()
@@ -76,6 +93,8 @@ void UINV_InventoryGrid::ConstructGrid()
 		}
 	}
 }
+
+
 
 bool UINV_InventoryGrid::MatchesCategory(const UINV_InventoryItem* Item) const
 {

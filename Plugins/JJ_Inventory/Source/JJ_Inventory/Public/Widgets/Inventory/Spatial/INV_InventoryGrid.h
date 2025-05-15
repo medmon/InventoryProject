@@ -40,6 +40,9 @@ private:
 	TWeakObjectPtr<UINV_InventoryComponent> InventoryComponent;
 
 	void ConstructGrid();
+
+	void AddItemToIndices(const FINV_SlotAvailabilityResult& Result, UINV_InventoryItem* NewItem);
+	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;
