@@ -1,7 +1,7 @@
 ﻿// Copyright © Jodiah Jensen
 
 
-#include "INV_InventoryStatics.h"
+#include "InventoryManagement/Utils/INV_InventoryStatics.h"
 
 #include "InventoryManagement/Components/INV_InventoryComponent.h"
 

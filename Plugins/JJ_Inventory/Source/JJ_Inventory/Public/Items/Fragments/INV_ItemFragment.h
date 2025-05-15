@@ -49,4 +49,20 @@ private:
 	
 };
 
+USTRUCT(BlueprintType)
+struct FINV_ImageFragment : public FINV_ItemFragment
+{
+	GENERATED_BODY()
 
+public:
+
+	UTexture2D* GetIcon() const { return Icon; }
+	
+private:
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	TObjectPtr<UTexture2D> Icon{nullptr};
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	FVector2D IconDimensions {40.f, 40.f};
+	
+};
