@@ -9,6 +9,8 @@
 #include "INV_InventoryGrid.generated.h"
 
 
+class UINV_ItemComponent;
+struct FINV_ItemManifest;
 class UINV_InventoryComponent;
 class UCanvasPanel;
 class UINV_GridSlot;
@@ -25,6 +27,11 @@ public:
 	
 	EINV_ItemCategory GetItemCategory() const { return ItemCategory; }
 
+	FINV_SlotAvailabilityResult HasRoomForItem(const UINV_ItemComponent* ItemComponent) const;
+	FINV_SlotAvailabilityResult HasRoomForItem(const UINV_InventoryItem* Item) const;
+	FINV_SlotAvailabilityResult HasRoomForItem(const FINV_ItemManifest& Manifest) const;
+
+	
 	UFUNCTION()
 	void AddItem(UINV_InventoryItem* Item);
 

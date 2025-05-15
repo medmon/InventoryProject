@@ -9,6 +9,7 @@
 #include "InventoryManagement/Components/INV_InventoryComponent.h"
 #include "InventoryManagement/Utils/INV_InventoryStatics.h"
 #include "Items/INV_InventoryItem.h"
+#include "Items/Components/INV_ItemComponent.h"
 #include "Widgets/Inventory/GridSlots/INV_GridSlot.h"
 #include "Widgets/Utils/INV_WidgetUtils.h"
 
@@ -23,12 +24,32 @@ void UINV_InventoryGrid::NativeOnInitialized()
 	InventoryComponent->OnItemAdded.AddDynamic(this, &ThisClass::AddItem);
 }
 
+FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const UINV_ItemComponent* ItemComponent) const
+{
+	return HasRoomForItem(ItemComponent->GetItemManifest());
+	
+}
+
+FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const UINV_InventoryItem* Item) const
+{
+	return HasRoomForItem(Item->GetItemManifest());
+
+}
+
+FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemManifest& Manifest) const
+{
+	return FINV_SlotAvailabilityResult();
+}
+
 void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)
 {
 	if (!MatchesCategory(Item)) return;
 
-	FString GridName = this->GetName();
+	FINV_SlotAvailabilityResult Result = HasRoomForItem(Item);
+
+	//Create a widget to show the item icon and add it to the correct spot on the grid
 	
+	FString GridName = this->GetName();	
 	UE_LOG(LogTemp, Warning, TEXT("InventoryGrid::AddItem - %s"), *GridName);
 }
 

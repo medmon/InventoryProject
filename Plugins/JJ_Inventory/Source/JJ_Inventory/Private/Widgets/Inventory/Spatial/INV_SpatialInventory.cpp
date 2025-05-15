@@ -3,8 +3,10 @@
 
 #include "Widgets/Inventory/SPatial/INV_SpatialInventory.h"
 
+#include "JJ_Inventory.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
+#include "Items/Components/INV_ItemComponent.h"
 #include "Widgets/Inventory/Spatial/INV_InventoryGrid.h"
 
 void UINV_SpatialInventory::NativeOnInitialized()
@@ -21,8 +23,18 @@ void UINV_SpatialInventory::NativeOnInitialized()
 
 FINV_SlotAvailabilityResult UINV_SpatialInventory::HasRoomForItem(UINV_ItemComponent* ItemComponent) const
 {
-	return FINV_SlotAvailabilityResult();
-	
+	switch (ItemComponent->GetItemManifest().GetItemCategory())
+	{
+		case EINV_ItemCategory::Consumable :
+			return Grid_Consumables->HasRoomForItem(ItemComponent);
+		case EINV_ItemCategory::Crafting :
+			return Grid_Crafting->HasRoomForItem(ItemComponent);
+		case EINV_ItemCategory::Equipment :
+			return Grid_Equipment->HasRoomForItem(ItemComponent);
+		default :
+			UE_LOG(LogInventory, Error, TEXT("Item Category invalid for ItemComponent ( is it 'None'?)")) 
+			return FINV_SlotAvailabilityResult();
+	}
 }
 
 void UINV_SpatialInventory::ShowEquipment()

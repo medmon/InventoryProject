@@ -98,7 +98,6 @@ void UINV_InventoryComponent::AddRepSubObj(UObject* SubObj)
 }
 
 
-// Called when the game starts
 void UINV_InventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
