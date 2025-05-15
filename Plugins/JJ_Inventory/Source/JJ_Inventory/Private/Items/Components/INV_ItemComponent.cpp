@@ -3,6 +3,8 @@
 
 #include "Items/Components/INV_ItemComponent.h"
 
+#include "Net/UnrealNetwork.h"
+
 
 // Sets default values for this component's properties
 UINV_ItemComponent::UINV_ItemComponent()
@@ -12,5 +14,13 @@ UINV_ItemComponent::UINV_ItemComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 
 	PickupMessage = FString("E - Pick Up");
+}
+
+void UINV_ItemComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ThisClass, ItemManifest);
+	
 }
 

@@ -21,7 +21,7 @@ public:
 
 	virtual void NativeOnInitialized() override;
 
-	virtual FINV_SlotAvailability HasRoomForItem(UINV_ItemComponent* ItemComponent) const override;
+	virtual FINV_SlotAvailabilityResult HasRoomForItem(UINV_ItemComponent* ItemComponent) const override;
 	
 
 	

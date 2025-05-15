@@ -3,20 +3,36 @@
 
 #include "InventoryManagement/Components/INV_InventoryComponent.h"
 
+#include "Net/UnrealNetwork.h"
 #include "Widgets/Inventory/InventoryBase/INV_InventoryBase.h"
 
 
 // Sets default values for this component's properties
-UINV_InventoryComponent::UINV_InventoryComponent()
+UINV_InventoryComponent::UINV_InventoryComponent() : InventoryList(this)
 {
 	PrimaryComponentTick.bCanEverTick = false;
 
+	SetIsReplicatedByDefault(true);
+	bReplicateUsingRegisteredSubObjectList = true;
+	bInventoryMenuOpen = false;
+	
+}
+
+void UINV_InventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ThisClass, InventoryList);
 }
 
 void UINV_InventoryComponent::TryAddItem(UINV_ItemComponent* ItemComponent)
 {
 	FINV_SlotAvailabilityResult Result = InventoryMenu->HasRoomForItem(ItemComponent);
 
+	//DEBUGGING
+	Result.TotalRoomToFill = 1;
+	//
+	
 	if (Result.TotalRoomToFill == 0)
 	{
 		NoRoomInInventory.Broadcast();
@@ -42,6 +58,14 @@ void UINV_InventoryComponent::TryAddItem(UINV_ItemComponent* ItemComponent)
 
 void UINV_InventoryComponent::Server_AddNewItem_Implementation(UINV_ItemComponent* ItemComponent, int32 StackCount)
 {
+	UINV_InventoryItem* NewItem = InventoryList.AddEntry(ItemComponent);
+
+	if (GetOwner()->GetNetMode() == NM_ListenServer || GetOwner()->GetNetMode() == NM_Standalone )
+	{
+		OnItemAdded.Broadcast(NewItem);
+	}
+	
+	//TODO: Tell the item component to destroy its owning actor
 	
 }
 
@@ -61,6 +85,16 @@ void UINV_InventoryComponent::ToggleInventoryMenu()
 	{
 		OpenInventoryMenu();
 	}
+}
+
+void UINV_InventoryComponent::AddRepSubObj(UObject* SubObj)
+{
+	if(IsUsingRegisteredSubObjectList() && IsReadyForReplication() && IsValid(SubObj))
+	{
+		AddReplicatedSubObject(SubObj);
+	}
+
+	
 }
 
 

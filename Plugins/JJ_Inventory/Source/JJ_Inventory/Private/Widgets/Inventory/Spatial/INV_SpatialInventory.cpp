@@ -19,9 +19,9 @@ void UINV_SpatialInventory::NativeOnInitialized()
 	
 }
 
-FINV_SlotAvailability UINV_SpatialInventory::HasRoomForItem(UINV_ItemComponent* ItemComponent) const
+FINV_SlotAvailabilityResult UINV_SpatialInventory::HasRoomForItem(UINV_ItemComponent* ItemComponent) const
 {
-	return FINV_SlotAvailability();
+	return FINV_SlotAvailabilityResult();
 	
 }
 

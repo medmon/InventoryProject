@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "InventoryManagement/FastArray/INV_FastArray.h"
 #include "INV_InventoryComponent.generated.h"
 
 class UINV_ItemComponent;
@@ -21,6 +22,8 @@ class JJ_INVENTORY_API UINV_InventoryComponent : public UActorComponent
 public:
 	UINV_InventoryComponent();
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 	UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category = "Inventory")
 	void TryAddItem(UINV_ItemComponent* ItemComponent);
 
@@ -32,6 +35,8 @@ public:
 	
 	void ToggleInventoryMenu();
 
+	void AddRepSubObj(UObject* SubObj);
+	
 	FInventoryItemChange OnItemAdded;
 	FInventoryItemChange OnItemRemoved;
 	FNoRoomInInventory NoRoomInInventory;
@@ -45,6 +50,9 @@ private:
 	
 	void ConstructInventory();
 
+	UPROPERTY(Replicated)
+	FINV_InventoryFastArray InventoryList;
+	
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	TSubclassOf<UINV_InventoryBase>  InventoryMenuClass;
 
