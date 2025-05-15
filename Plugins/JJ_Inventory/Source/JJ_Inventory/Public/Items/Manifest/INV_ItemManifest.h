@@ -13,6 +13,8 @@
 */
 
 
+struct FINV_ItemFragment;
+
 USTRUCT(BlueprintType)
 struct JJ_INVENTORY_API FINV_ItemManifest
 {
@@ -25,6 +27,9 @@ struct JJ_INVENTORY_API FINV_ItemManifest
  
 private:
 
+ UPROPERTY(EditAnywhere, Category = "Inventory", meta = (ExcludeBaseStruct))
+ TArray<TInstancedStruct<FINV_ItemFragment>> Fragments;
+ 
  UPROPERTY(EditAnywhere, Category = "Inventory")
 	EINV_ItemCategory ItemCategory{EINV_ItemCategory::None};
 
