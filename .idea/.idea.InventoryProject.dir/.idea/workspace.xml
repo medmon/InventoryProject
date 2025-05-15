@@ -23,11 +23,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet..." root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/shared/ifdef.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -161,7 +159,9 @@
       <workItem from="1747307648853" duration="302000" />
       <workItem from="1747308003788" duration="56000" />
       <workItem from="1747308607041" duration="6206000" />
-      <workItem from="1747315566210" duration="174000" />
+      <workItem from="1747315566210" duration="2939000" />
+      <workItem from="1747319489929" duration="7259000" />
+      <workItem from="1747327295880" duration="156000" />
     </task>
     <servers />
   </component>

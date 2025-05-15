@@ -4,11 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Items/Fragments/INV_ItemFragment.h"
 #include "Types/INV_GridTypes.h"
 
 #include "INV_InventoryGrid.generated.h"
 
 
+class UINV_SlottedItem;
 class UINV_ItemComponent;
 struct FINV_ItemManifest;
 class UINV_InventoryComponent;
@@ -42,6 +44,21 @@ private:
 	void ConstructGrid();
 
 	void AddItemToIndices(const FINV_SlotAvailabilityResult& Result, UINV_InventoryItem* NewItem);
+	bool MatchesCategory(const UINV_InventoryItem* Item) const;
+	FVector2D GetDrawSize(const FINV_GridFragment* GridFragment) const;
+	void SetSlottedItemImage(
+		const  UINV_SlottedItem* SlottedItem,
+		const FINV_GridFragment* GridFragment,
+		const FINV_ImageFragment* ImageFragment) const;
+	void AddItemAtIndex(UINV_InventoryItem* Item, const int32 Index, const bool bStackable, const int32 StackAmount);
+	UINV_SlottedItem* CreateSlottedItem(UINV_InventoryItem* Item,
+		const bool bStackable,
+		const int32 StackAmount,
+		const FINV_GridFragment* GridFragment,
+		const FINV_ImageFragment* ImageFragment,
+		const int32 Index);
+		
+	
 	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
@@ -55,6 +72,9 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UCanvasPanel> CanvasPanel;
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	TSubclassOf<UINV_SlottedItem> SlottedItemClass;
 	
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	int32 Rows;
@@ -65,7 +85,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	float TileSize;
 
-	bool MatchesCategory(const UINV_InventoryItem* Item) const;
+	
 	
 		
 	
