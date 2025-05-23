@@ -57,7 +57,8 @@ private:
 		const FINV_GridFragment* GridFragment,
 		const FINV_ImageFragment* ImageFragment,
 		const int32 Index);
-		
+	void AddSlottedItemToCanvas(const int32 Index, const FINV_GridFragment* GridFragment, UINV_SlottedItem* SlottedItem) const;
+	void UpdateGridSlots(UINV_InventoryItem* NewItem, const int32 Index, bool bStackableItem, int32 StackAmount);
 	
 	
 	
@@ -75,6 +76,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	TSubclassOf<UINV_SlottedItem> SlottedItemClass;
+
+	UPROPERTY()
+	TMap<int32, TObjectPtr<UINV_SlottedItem>> SlottedItems;
 	
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	int32 Rows;

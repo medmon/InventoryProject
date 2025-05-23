@@ -22,11 +22,56 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///AIAssistantSnippet..." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://11" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/shared/ifdef.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_InventoryComponent.gen.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Plugins/Media/AvidDNxMedia/Source/Source/AvidDNxMedia.Build.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Developer/ExternalImagePicker/ExternalImagePicker.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Developer/SkeletalMeshUtilitiesCommon/SkeletalMeshUtilitiesCommon.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Developer/TextureFormatASTC/TextureFormatASTC.Build.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/Kismet/Private/BPVariableDragDropAction.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/Kismet/Private/SDetailsDiff.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/Kismet/Private/SReplaceNodeReferences.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/Kismet/Private/STimelineEditor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/Kismet/Public/SBlueprintEditorToolbar.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/Persona/Private/SPoseWatchManager.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/Persona/Private/SSkeletonAnimNotifies.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Editor/UnrealEd/Public/Kismet2/KismetReinstanceUtilities.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/Delegates/DelegateAccessHandler.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/Delegates/DelegateInstancesImpl.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/Misc/MTAccessDetector.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/Templates/MemoryOps.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/CoreUObject/Public/StructUtils/InstancedStruct.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectHandle.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectHandleTracking.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Engine/Public/Materials/MaterialExpressionMin.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -162,6 +207,11 @@
       <workItem from="1747315566210" duration="2939000" />
       <workItem from="1747319489929" duration="7259000" />
       <workItem from="1747327295880" duration="156000" />
+      <workItem from="1747346809962" duration="4017000" />
+      <workItem from="1747460150467" duration="301000" />
+      <workItem from="1747460711631" duration="22156000" />
+      <workItem from="1747705012772" duration="18688000" />
+      <workItem from="1747993264208" duration="2798000" />
     </task>
     <servers />
   </component>

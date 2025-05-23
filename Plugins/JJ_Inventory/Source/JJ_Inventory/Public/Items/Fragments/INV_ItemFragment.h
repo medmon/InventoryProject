@@ -66,3 +66,32 @@ private:
 	FVector2D IconDimensions {40.f, 40.f};
 	
 };
+
+USTRUCT(BlueprintType)
+struct FINV_StackableFragment : public FINV_ItemFragment
+{
+	GENERATED_BODY()
+public:
+
+	int32 GetMaxStackSize() const { return MaxStackSize; }
+	void SetMaxStackSize(int32 Size) { MaxStackSize = Size; }
+	int32 GetStackCount() const { return StackCount; }
+	void SetStackCount(int32 Count) { StackCount = Count; }
+	void AddToStackCount(int32 Count) { StackCount += Count; }
+	void RemoveFromStackCount(int32 Count) { StackCount -= Count; }
+	bool IsFull() const { return StackCount >= MaxStackSize; }
+	bool IsEmpty() const { return StackCount <= 0; }
+	bool IsStackable() const { return MaxStackSize > 1; }
+	bool IsSingleItem() const { return MaxStackSize == 1; }
+	bool IsStackableAndFull() const { return IsStackable() && IsFull(); }
+	
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	int32 MaxStackSize{1};
+	
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	int32 StackCount{1};	
+	
+	
+};

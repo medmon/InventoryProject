@@ -30,7 +30,7 @@ void UINV_InventoryComponent::TryAddItem(UINV_ItemComponent* ItemComponent)
 	FINV_SlotAvailabilityResult Result = InventoryMenu->HasRoomForItem(ItemComponent);
 
 	//DEBUGGING
-	Result.TotalRoomToFill = 1;
+	//Result.TotalRoomToFill = 1;
 	//
 	
 	if (Result.TotalRoomToFill == 0)

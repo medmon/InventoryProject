@@ -10,7 +10,9 @@
 
 #include "INV_SlottedItem.generated.h"
 
+class UINV_InventoryItem;
 class UImage;
+class UTextBlock;
 
 /**
  * 
@@ -34,16 +36,22 @@ public:
 	void SetTotalStackCount(int32 Count);
 	void SetItemIcon(UTexture2D* Icon);
 	void SetImageBrush(const FSlateBrush& Brush) const { Image_Icon->SetBrush(Brush); }
+
+	void UpdateStackCount(int32 StackCount);
+
 	
 private:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UImage> Image_Icon;
+	
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTextBlock> Text_StackCount;
 
+	
+	
 	int32 GridIndex;
 	FIntPoint GridDimensions;
-	
 	TWeakObjectPtr<UINV_InventoryItem> InventoryItem;
-
 	bool bIsStackable{false};
 	
 };
