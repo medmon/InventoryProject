@@ -29,9 +29,9 @@ public:
 	
 	EINV_ItemCategory GetItemCategory() const { return ItemCategory; }
 
-	FINV_SlotAvailabilityResult HasRoomForItem(const UINV_ItemComponent* ItemComponent) const;
-	FINV_SlotAvailabilityResult HasRoomForItem(const UINV_InventoryItem* Item) const;
-	FINV_SlotAvailabilityResult HasRoomForItem(const FINV_ItemManifest& Manifest) const;
+	FINV_SlotAvailabilityResult HasRoomForItem(const UINV_ItemComponent* ItemComponent) ;
+	FINV_SlotAvailabilityResult HasRoomForItem(const UINV_InventoryItem* Item) ;
+	FINV_SlotAvailabilityResult HasRoomForItem(const FINV_ItemManifest& Manifest) ;
 
 	
 	UFUNCTION()
@@ -59,8 +59,9 @@ private:
 		const int32 Index);
 	void AddSlottedItemToCanvas(const int32 Index, const FINV_GridFragment* GridFragment, UINV_SlottedItem* SlottedItem) const;
 	void UpdateGridSlots(UINV_InventoryItem* NewItem, const int32 Index, bool bStackableItem, int32 StackAmount);
-	
-	
+	bool IsIndexClaimed(const TSet<int32>& CheckedIndices, const int32 Index);
+	bool HasRoomAtIndex(const UINV_GridSlot* GridSlot, const FIntPoint& Dimensions);
+	FIntPoint GetItemDimensions(const FINV_ItemManifest& Manifest) const;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;
