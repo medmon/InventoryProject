@@ -64,11 +64,10 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 
 		//can the item fit here (within grid bounds)
 		TSet<int32> TentativelyClaimed;
-		if ( !HasRoomAtIndex(
-				GridSlot,
-				GetItemDimensions(Manifest)
-							)
-		   )
+		if ( !HasRoomAtIndex(GridSlot,
+			GetItemDimensions(Manifest),
+			CheckedIndices,
+			TentativelyClaimed) )
 		{
 			continue;
 		}
@@ -86,8 +85,12 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 	return Result;
 }
 
-bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot, const FIntPoint& Dimensions)
+bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot,
+		const FIntPoint& Dimensions,
+		const TSet<int32>& CheckedIndices,
+		TSet<int32>& OutTentativelyClaimed)
 {
+	//Is there room at this index? ( are there other items in the way?)
 	bool bHasRoomAtIndex = true;
 	
 	UINV_InventoryStatics::ForEach2D(
@@ -95,12 +98,31 @@ bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot, const FIn
 		GridSlot->GetIndex(),
 		Dimensions,
 		Columns,
-		[&]()
+		[&](const UINV_GridSlot* SubGridSlot)
 		{
-			
+			if ( CheckSlotConstraints(SubGridSlot) )
+			{
+				OutTentativelyClaimed.Add(SubGridSlot->GetIndex());
+			}
+			else
+			{
+				bHasRoomAtIndex = false;
+			}
 		});
 
 	return bHasRoomAtIndex;
+}
+
+bool UINV_InventoryGrid::CheckSlotConstraints(const UINV_GridSlot* SubGridSlot) const
+{
+	//Check any other important conditions
+	// Index Claimed?
+	//Has Valid Item?
+	//is this item the same type as the item we're trying to add?
+	//if so, is this a stackable item?
+	//if stackable is this slot at max stack size already?
+	
+	return false;
 }
 
 FIntPoint UINV_InventoryGrid::GetItemDimensions(const FINV_ItemManifest& Manifest) const
