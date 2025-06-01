@@ -78,7 +78,7 @@ private:
 	bool HasValidItem( const  UINV_GridSlot* GridSlot) const;
 	bool IsUpperLeftSlot(const UINV_GridSlot* GridSlot, const UINV_GridSlot* SubGridSlot) const;
 	bool DoesItemTypeMatch(const UINV_InventoryItem* SubItem, const FGameplayTag& ItemType) const;
-
+	bool IsInGridBounds(const int32 StartIndex, const FIntPoint& ItemDimensions) const;
 
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")

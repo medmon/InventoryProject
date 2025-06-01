@@ -70,6 +70,9 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 		if ( IsIndexClaimed(CheckedIndices, GridSlot->GetIndex()) ) continue;
 
 		//can the item fit here (within grid bounds)
+		if (!IsInGridBounds(GridSlot->GetIndex(), GetItemDimensions(Manifest))) continue;
+		
+		
 		TSet<int32> TentativelyClaimed;
 		if ( !HasRoomAtIndex(GridSlot,
 			GetItemDimensions(Manifest),
@@ -83,6 +86,8 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 		}
 		
 		CheckedIndices.Append(TentativelyClaimed);
+
+	//fill out the Result
 		
 	// how much to fill
 	//update amount left to fill
@@ -188,6 +193,17 @@ bool UINV_InventoryGrid::IsUpperLeftSlot(const UINV_GridSlot* GridSlot, const UI
 bool UINV_InventoryGrid::DoesItemTypeMatch(const UINV_InventoryItem* SubItem, const FGameplayTag& ItemType) const
 {
 	return SubItem->GetItemManifest().GetItemType().MatchesTagExact(ItemType);
+}
+
+bool UINV_InventoryGrid::IsInGridBounds(const int32 StartIndex, const FIntPoint& ItemDimensions) const
+{
+	if (StartIndex < 0 || StartIndex >= GridSlots.Num()) return false;
+
+	const int32 EndColumn = (StartIndex % Columns) + ItemDimensions.X;
+	const int32 EndRow = (StartIndex / Columns) + ItemDimensions.Y;
+	
+
+	return EndColumn <= Columns && EndRow <= Rows;
 }
 
 void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)
