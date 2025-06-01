@@ -75,20 +75,23 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 			GetItemDimensions(Manifest),
 			CheckedIndices,
 			TentativelyClaimed,
-			Manifest.GetItemType())
+			Manifest.GetItemType(),
+			MaxStackSize)
 			)
 		{
 			continue;
 		}
-
+		
 		CheckedIndices.Append(TentativelyClaimed);
 		
+	// how much to fill
+	//update amount left to fill
+
+	}
+
+	// How much is the remainder
 
 		
-	}
-	
-
-	
 	return Result;
 }
 
@@ -96,7 +99,8 @@ bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot,
 		const FIntPoint& Dimensions,
 		const TSet<int32>& CheckedIndices,
 		TSet<int32>& OutTentativelyClaimed,
-		const FGameplayTag& ItemType)
+		const FGameplayTag& ItemType,
+		const int32 MaxStackSize)
 {
 	//Is there room at this index? ( are there other items in the way?)
 	bool bHasRoomAtIndex = true;
@@ -108,7 +112,12 @@ bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot,
 		Columns,
 		[&](const UINV_GridSlot* SubGridSlot)
 		{
-			if ( CheckSlotConstraints(GridSlot, SubGridSlot, CheckedIndices, OutTentativelyClaimed, ItemType) )
+			if ( CheckSlotConstraints(	GridSlot,
+										SubGridSlot,
+										CheckedIndices,
+										OutTentativelyClaimed,
+										ItemType,
+										MaxStackSize) )
 			{
 				OutTentativelyClaimed.Add(SubGridSlot->GetIndex());
 			}
@@ -125,7 +134,8 @@ bool UINV_InventoryGrid::CheckSlotConstraints(	const UINV_GridSlot* GridSlot,
 												const UINV_GridSlot* SubGridSlot,
 												const TSet<int32>& CheckedIndices,
 												TSet<int32>& OutTentativelyClaimed,
-												const FGameplayTag& ItemType) const
+												const FGameplayTag& ItemType,
+												const int32 MaxStackSize) const
 {
 			//Check any other important conditions
 
@@ -151,16 +161,10 @@ bool UINV_InventoryGrid::CheckSlotConstraints(	const UINV_GridSlot* GridSlot,
 	if (!DoesItemTypeMatch(SubItem, ItemType)) return false;
 	
 	//if stackable is this slot at max stack size already?
+	if (GridSlot->GetStackCount()>= MaxStackSize) return false;
 	
 	
-	
-		// how much to fill
-		//update amount left to fill
-	// How much is the remainder
-
-
-	
-	return false;
+	return true;
 }
 
 FIntPoint UINV_InventoryGrid::GetItemDimensions(const FINV_ItemManifest& Manifest) const
