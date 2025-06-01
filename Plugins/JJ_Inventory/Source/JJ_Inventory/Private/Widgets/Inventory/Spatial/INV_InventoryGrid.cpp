@@ -105,7 +105,7 @@ bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot,
 		Columns,
 		[&](const UINV_GridSlot* SubGridSlot)
 		{
-			if ( CheckSlotConstraints(SubGridSlot, CheckedIndices, OutTentativelyClaimed) )
+			if ( CheckSlotConstraints(GridSlot, SubGridSlot, CheckedIndices, OutTentativelyClaimed) )
 			{
 				OutTentativelyClaimed.Add(SubGridSlot->GetIndex());
 			}
@@ -118,7 +118,8 @@ bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot,
 	return bHasRoomAtIndex;
 }
 
-bool UINV_InventoryGrid::CheckSlotConstraints(	const UINV_GridSlot* SubGridSlot,
+bool UINV_InventoryGrid::CheckSlotConstraints(	const UINV_GridSlot* GridSlot,
+												const UINV_GridSlot* SubGridSlot,
 												const TSet<int32>& CheckedIndices,
 												TSet<int32>& OutTentativelyClaimed
 	) const
@@ -136,7 +137,7 @@ bool UINV_InventoryGrid::CheckSlotConstraints(	const UINV_GridSlot* SubGridSlot,
    	
    }
 		// is this grid slot an upper-left slot
-	
+	if (!IsUpperLeftSlot(GridSlot, SubGridSlot)) return false;
 	
 			//is this item the same type as the item we're trying to add?
 			//if so, is this a stackable item?
@@ -159,6 +160,13 @@ FIntPoint UINV_InventoryGrid::GetItemDimensions(const FINV_ItemManifest& Manifes
 bool UINV_InventoryGrid::HasValidItem(const UINV_GridSlot* GridSlot) const
 {
 	return GridSlot->GetInventoryItem().IsValid();
+}
+
+bool UINV_InventoryGrid::IsUpperLeftSlot(const UINV_GridSlot* GridSlot, const UINV_GridSlot* SubGridSlot) const
+
+{
+	
+	return SubGridSlot->GetUpperLeftIndex() == GridSlot->GetIndex();
 }
 
 void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)

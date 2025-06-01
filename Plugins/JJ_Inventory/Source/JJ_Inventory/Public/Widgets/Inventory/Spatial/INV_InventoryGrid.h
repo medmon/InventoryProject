@@ -65,13 +65,14 @@ private:
 		const TSet<int32>& CheckedIndices,
 		TSet<int32>& OutTentativelyClaimed);
 
-	bool CheckSlotConstraints(const UINV_GridSlot* SubGridSlot,
-		const TSet<int32>& CheckedIndices,
-		TSet<int32>& OutTentativelyClaimed) const;
+	bool CheckSlotConstraints(	const UINV_GridSlot* GridSlot,
+								const UINV_GridSlot* SubGridSlot,
+								const TSet<int32>& CheckedIndices,
+								TSet<int32>& OutTentativelyClaimed) const;
 	
 	FIntPoint GetItemDimensions(const FINV_ItemManifest& Manifest) const;
-
 	bool HasValidItem( const  UINV_GridSlot* GridSlot) const;
+	bool IsUpperLeftSlot(const UINV_GridSlot* GridSlot, const UINV_GridSlot* SubGridSlot) const;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;
