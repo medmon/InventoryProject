@@ -59,15 +59,19 @@ private:
 		const int32 Index);
 	void AddSlottedItemToCanvas(const int32 Index, const FINV_GridFragment* GridFragment, UINV_SlottedItem* SlottedItem) const;
 	void UpdateGridSlots(UINV_InventoryItem* NewItem, const int32 Index, bool bStackableItem, int32 StackAmount);
-	bool IsIndexClaimed(const TSet<int32>& CheckedIndices, const int32 Index);
+	bool IsIndexClaimed(const TSet<int32>& CheckedIndices, const int32 Index) const;
 	bool HasRoomAtIndex(const UINV_GridSlot* GridSlot,
 		const FIntPoint& Dimensions,
 		const TSet<int32>& CheckedIndices,
 		TSet<int32>& OutTentativelyClaimed);
 
-	bool CheckSlotConstraints(const UINV_GridSlot* SubGridSlot) const;
+	bool CheckSlotConstraints(const UINV_GridSlot* SubGridSlot,
+		const TSet<int32>& CheckedIndices,
+		TSet<int32>& OutTentativelyClaimed) const;
 	
 	FIntPoint GetItemDimensions(const FINV_ItemManifest& Manifest) const;
+
+	bool HasValidItem( const  UINV_GridSlot* GridSlot) const;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;

@@ -50,7 +50,7 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 	Result.bStackable = StackableFragment != nullptr;
 	
 	//determine how many stacks to add
-	const int32 MaxStackSize = Result.bStackable ? StackableFragment->GetMaxStackSize() : 1;
+    	const int32 MaxStackSize = Result.bStackable ? StackableFragment->GetMaxStackSize() : 1;
 	int32 AmountToFill = Result.bStackable ? StackableFragment->GetStackCount() : 1 ;
 
 	TSet<int32> CheckedIndices;
@@ -80,8 +80,6 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 	
 
 	
-	
-	
 	return Result;
 }
 
@@ -100,7 +98,7 @@ bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot,
 		Columns,
 		[&](const UINV_GridSlot* SubGridSlot)
 		{
-			if ( CheckSlotConstraints(SubGridSlot) )
+			if ( CheckSlotConstraints(SubGridSlot, CheckedIndices, OutTentativelyClaimed) )
 			{
 				OutTentativelyClaimed.Add(SubGridSlot->GetIndex());
 			}
@@ -113,14 +111,34 @@ bool UINV_InventoryGrid::HasRoomAtIndex(const UINV_GridSlot* GridSlot,
 	return bHasRoomAtIndex;
 }
 
-bool UINV_InventoryGrid::CheckSlotConstraints(const UINV_GridSlot* SubGridSlot) const
+bool UINV_InventoryGrid::CheckSlotConstraints(	const UINV_GridSlot* SubGridSlot,
+												const TSet<int32>& CheckedIndices,
+												TSet<int32>& OutTentativelyClaimed
+	) const
 {
-	//Check any other important conditions
+			//Check any other important conditions
+
 	// Index Claimed?
+	if ( IsIndexClaimed(CheckedIndices, SubGridSlot->GetIndex()) ) return false;
+	
 	//Has Valid Item?
-	//is this item the same type as the item we're trying to add?
-	//if so, is this a stackable item?
-	//if stackable is this slot at max stack size already?
+   if ( !HasValidItem(SubGridSlot) )
+   {
+	   OutTentativelyClaimed.Add(SubGridSlot->GetIndex());
+   		return true;
+   	
+   }
+		// is this grid slot an upper-left slot
+	
+	
+			//is this item the same type as the item we're trying to add?
+			//if so, is this a stackable item?
+			//if stackable is this slot at max stack size already?
+		// how much to fill
+		//update amount left to fill
+	// How much is the remainder
+
+
 	
 	return false;
 }
@@ -129,6 +147,11 @@ FIntPoint UINV_InventoryGrid::GetItemDimensions(const FINV_ItemManifest& Manifes
 {
 	const FINV_GridFragment* GridFragment = Manifest.GetFragmentOfType<FINV_GridFragment>();
 	return GridFragment ? GridFragment->GetGridSize() : FIntPoint(1,1);
+}
+
+bool UINV_InventoryGrid::HasValidItem(const UINV_GridSlot* GridSlot) const
+{
+	return GridSlot->GetInventoryItem().IsValid();
 }
 
 void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)
@@ -238,7 +261,7 @@ void UINV_InventoryGrid::UpdateGridSlots(UINV_InventoryItem* NewItem, const int3
 	GridSlot->SetOccupiedTexture();
 }
 
-bool UINV_InventoryGrid::IsIndexClaimed(const TSet<int32>& CheckedIndices, const int32 Index)
+bool UINV_InventoryGrid::IsIndexClaimed(const TSet<int32>& CheckedIndices, const int32 Index) const
 {
 	return CheckedIndices.Contains(Index);
 }
