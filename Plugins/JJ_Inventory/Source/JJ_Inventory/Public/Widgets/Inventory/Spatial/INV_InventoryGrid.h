@@ -79,7 +79,12 @@ private:
 	bool IsUpperLeftSlot(const UINV_GridSlot* GridSlot, const UINV_GridSlot* SubGridSlot) const;
 	bool DoesItemTypeMatch(const UINV_InventoryItem* SubItem, const FGameplayTag& ItemType) const;
 	bool IsInGridBounds(const int32 StartIndex, const FIntPoint& ItemDimensions) const;
-
+	int32 DetermineFillAmountForSlot(	const bool bStackable,
+										const int32 MaxStackSize,
+										const int32 AmountToFill,
+										UINV_GridSlot* GridSlot) const;
+	int32 GetStackAmount(const UINV_GridSlot* GridSlot) const;
+	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;
