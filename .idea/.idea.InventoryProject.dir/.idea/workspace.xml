@@ -20,6 +20,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -127,7 +132,8 @@
       <option name="presentableId" value="Default" />
       <updated>1748789850816</updated>
       <workItem from="1748789852364" duration="1440000" />
-      <workItem from="1748863450419" duration="1372000" />
+      <workItem from="1748863450419" duration="3111000" />
+      <workItem from="1748867418392" duration="898000" />
     </task>
     <servers />
   </component>

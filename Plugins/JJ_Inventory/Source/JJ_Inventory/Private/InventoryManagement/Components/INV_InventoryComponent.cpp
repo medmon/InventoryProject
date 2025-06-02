@@ -58,6 +58,7 @@ void UINV_InventoryComponent::TryAddItem(UINV_ItemComponent* ItemComponent)
 void UINV_InventoryComponent::Server_AddNewItem_Implementation(UINV_ItemComponent* ItemComponent, int32 StackCount)
 {
 	UINV_InventoryItem* NewItem = InventoryList.AddEntry(ItemComponent);
+	NewItem->SetTotalStackCount(StackCount);
 
 	if (GetOwner()->GetNetMode() == NM_ListenServer || GetOwner()->GetNetMode() == NM_Standalone )
 	{
@@ -71,6 +72,14 @@ void UINV_InventoryComponent::Server_AddNewItem_Implementation(UINV_ItemComponen
 void UINV_InventoryComponent::Server_AddStacksToItem_Implementation(UINV_ItemComponent* ItemComponent, int32 StackCount,
 	int32 Remainder)
 {
+	const FGameplayTag& ItemType =IsValid(ItemComponent) ? ItemComponent->GetItemManifest().GetItemType() : FGameplayTag::EmptyTag;
+	UINV_InventoryItem* Item = InventoryList.FindFirstItemByType(ItemType);
+	if (!IsValid(Item)) return;
+
+	Item->SetTotalStackCount(Item->GetTotalStackCount() + StackCount);
+
+	//TODO: Tell the item component to destroy its owning actor if the remainder is zero
+	// otherwise update the stack count for the item pickup
 	
 }
 
