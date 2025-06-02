@@ -10,6 +10,7 @@
 #include "INV_InventoryGrid.generated.h"
 
 
+class UINV_HoverItem;
 class UINV_SlottedItem;
 class UINV_ItemComponent;
 struct FINV_ItemManifest;
@@ -84,7 +85,8 @@ private:
 										const int32 AmountToFill,
 										UINV_GridSlot* GridSlot) const;
 	int32 GetStackAmount(const UINV_GridSlot* GridSlot) const;
-	
+	bool IsRightClick(const FPointerEvent& MouseEvent) const;
+	bool IsLeftClick(const FPointerEvent& MouseEvent) const;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;
@@ -113,12 +115,19 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	float TileSize;
 
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	TSubclassOf<UINV_HoverItem> HoverItemClass;
+
+	UPROPERTY()
+	TObjectPtr<UINV_HoverItem> HoverItem;
+	
 	UFUNCTION()
 	void AddStacks(const FINV_SlotAvailabilityResult& Result);
 
 
 	UFUNCTION()
 	void OnSlottedItemClicked(int32 GridIndex, const FPointerEvent& MouseEvent);
-		
+
+	
 	
 };

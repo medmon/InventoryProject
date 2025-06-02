@@ -13,6 +13,7 @@
 #include "Items/Fragments/INV_FragmentTags.h"
 #include "Items/Fragments/INV_ItemFragment.h"
 #include "Widgets/Inventory/GridSlots/INV_GridSlot.h"
+#include "Widgets/Inventory/HoverItem/INV_HoverItem.h"
 #include "Widgets/Inventory/SlottedItems/INV_SlottedItem.h"
 #include "Widgets/Utils/INV_WidgetUtils.h"
 
@@ -239,6 +240,16 @@ int32 UINV_InventoryGrid::GetStackAmount(const UINV_GridSlot* GridSlot) const
 	return CurrentSlotStackCount;
 }
 
+bool UINV_InventoryGrid::IsRightClick(const FPointerEvent& MouseEvent) const
+{
+	return MouseEvent.GetEffectingButton() == EKeys::RightMouseButton;
+}
+
+bool UINV_InventoryGrid::IsLeftClick(const FPointerEvent& MouseEvent) const
+{
+	return MouseEvent.GetEffectingButton() == EKeys::LeftMouseButton;
+}
+
 void UINV_InventoryGrid::AddStacks(const FINV_SlotAvailabilityResult& Result)
 {
 	if (!MatchesCategory(Result.Item.Get())) return;
@@ -263,6 +274,15 @@ void UINV_InventoryGrid::AddStacks(const FINV_SlotAvailabilityResult& Result)
 
 void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEvent& MouseEvent)
 {
+	check(GridSlots.IsValidIndex(GridIndex));
+	UINV_InventoryItem* ClickedInventoryItem = GridSlots[GridIndex]->GetInventoryItem().Get();
+
+	if (!IsValid(HoverItem) && IsLeftClick(MouseEvent))
+	{
+		//TODO: pickup slotted item here - assign the hover item and remove the slotted item from the grid
+		
+	}
+	
 	UE_LOG(LogTemp, Warning, TEXT("InventoryGrid::OnSlottedItemClicked - %d"), GridIndex);
 	
 }
