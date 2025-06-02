@@ -250,6 +250,42 @@ bool UINV_InventoryGrid::IsLeftClick(const FPointerEvent& MouseEvent) const
 	return MouseEvent.GetEffectingButton() == EKeys::LeftMouseButton;
 }
 
+void UINV_InventoryGrid::PickUp(UINV_InventoryItem* ClickedInventoryItem, const int32 GridIndex)
+{
+	//assign the hover item
+	AssignHoverItem(ClickedInventoryItem);
+	
+	// remove clicked item from grid
+}
+
+void UINV_InventoryGrid::AssignHoverItem(UINV_InventoryItem* InventoryItem)
+{
+	if (!IsValid(HoverItem))
+	{
+		HoverItem = CreateWidget<UINV_HoverItem>(GetOwningPlayer(), HoverItemClass);
+	}
+
+	const FINV_GridFragment* GridFragment = GetFragment<FINV_GridFragment>(InventoryItem, FragmentTags::GridFragment);
+	const FINV_ImageFragment* ImageFragment = GetFragment<FINV_ImageFragment>(InventoryItem, FragmentTags::IconFragment);
+
+	if (!GridFragment || !ImageFragment) return;
+
+	const FVector2D DrawSize = GetDrawSize(GridFragment);
+	
+	FSlateBrush IconBrush;
+	IconBrush.SetResourceObject(ImageFragment->GetIcon());
+	IconBrush.DrawAs = ESlateBrushDrawType::Image;
+	IconBrush.ImageSize = DrawSize * UWidgetLayoutLibrary::GetViewportScale(this);
+
+	HoverItem->SetImageBrush(IconBrush);
+	HoverItem->SetGridDimensions(GridFragment->GetGridSize());
+	HoverItem->SetInventoryItem(InventoryItem);
+	HoverItem->SetIsStackable(InventoryItem->IsStackable());
+
+	GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, HoverItem);
+	
+}
+
 void UINV_InventoryGrid::AddStacks(const FINV_SlotAvailabilityResult& Result)
 {
 	if (!MatchesCategory(Result.Item.Get())) return;
@@ -279,8 +315,8 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 
 	if (!IsValid(HoverItem) && IsLeftClick(MouseEvent))
 	{
-		//TODO: pickup slotted item here - assign the hover item and remove the slotted item from the grid
-		
+		// take slotted item here - assign the hover item and remove the slotted item from the grid
+		PickUp(ClickedInventoryItem, GridIndex);
 	}
 	
 	UE_LOG(LogTemp, Warning, TEXT("InventoryGrid::OnSlottedItemClicked - %d"), GridIndex);

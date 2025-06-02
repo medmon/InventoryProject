@@ -87,6 +87,12 @@ private:
 	int32 GetStackAmount(const UINV_GridSlot* GridSlot) const;
 	bool IsRightClick(const FPointerEvent& MouseEvent) const;
 	bool IsLeftClick(const FPointerEvent& MouseEvent) const;
+
+	void PickUp(UINV_InventoryItem* ClickedInventoryItem, const int32 GridIndex);
+	void AssignHoverItem(UINV_InventoryItem* InventoryItem);
+
+
+
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;
