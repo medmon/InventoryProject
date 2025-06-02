@@ -3,9 +3,10 @@
 
 #include "InventoryManagement/Components/INV_InventoryComponent.h"
 
+#include "Items/Components/INV_ItemComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Widgets/Inventory/InventoryBase/INV_InventoryBase.h"
-
+#include "Items/INV_InventoryItem.h"
 
 // Sets default values for this component's properties
 UINV_InventoryComponent::UINV_InventoryComponent() : InventoryList(this)
@@ -29,9 +30,9 @@ void UINV_InventoryComponent::TryAddItem(UINV_ItemComponent* ItemComponent)
 {
 	FINV_SlotAvailabilityResult Result = InventoryMenu->HasRoomForItem(ItemComponent);
 
-	//DEBUGGING
-	//Result.TotalRoomToFill = 1;
-	//
+	UINV_InventoryItem* FoundItem = InventoryList.FindFirstItemByType(ItemComponent->GetItemManifest().GetItemType());
+
+	Result.Item = FoundItem;
 	
 	if (Result.TotalRoomToFill == 0)
 	{
@@ -39,8 +40,6 @@ void UINV_InventoryComponent::TryAddItem(UINV_ItemComponent* ItemComponent)
 		return;
 	}
 
-	//TODO: Actually add the item to the inventory
-	//
 
 	if (Result.Item.IsValid() && Result.bStackable)
 	{

@@ -43,13 +43,7 @@ FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const FINV_ItemMa
 {
 	FINV_SlotAvailabilityResult Result; 
 
-	Result.TotalRoomToFill = 1;
-	
-	FINV_SlotAvailability SlotAvailability;
-	SlotAvailability.AmountToFill = 1;
-	SlotAvailability.Index = 0;
-	Result.SlotAvailabilities.Add(SlotAvailability);	
-	
+
 	//determine if the item is stackable
 	const FINV_StackableFragment* StackableFragment =
 		Manifest.GetFragmentOfType<FINV_StackableFragment>();
