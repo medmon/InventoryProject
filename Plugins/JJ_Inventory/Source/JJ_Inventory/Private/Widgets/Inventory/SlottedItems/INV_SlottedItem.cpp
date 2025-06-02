@@ -5,6 +5,12 @@
 
 #include "Components/TextBlock.h"
 
+FReply UINV_SlottedItem::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	OnSlottedItemClicked.Broadcast(GridIndex, InMouseEvent);
+	return FReply::Handled();
+}
+
 UINV_InventoryItem* UINV_SlottedItem::GetInventoryItem() const
 {
 	 return InventoryItem.Get(); 

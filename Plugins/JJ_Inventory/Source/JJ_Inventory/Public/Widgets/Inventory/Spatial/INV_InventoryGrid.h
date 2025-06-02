@@ -115,7 +115,10 @@ private:
 
 	UFUNCTION()
 	void AddStacks(const FINV_SlotAvailabilityResult& Result);
-	
+
+
+	UFUNCTION()
+	void OnSlottedItemClicked(int32 GridIndex, const FPointerEvent& MouseEvent);
 		
 	
 };

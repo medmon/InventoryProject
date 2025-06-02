@@ -261,6 +261,12 @@ void UINV_InventoryGrid::AddStacks(const FINV_SlotAvailabilityResult& Result)
 	}
 }
 
+void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEvent& MouseEvent)
+{
+	UE_LOG(LogTemp, Warning, TEXT("InventoryGrid::OnSlottedItemClicked - %d"), GridIndex);
+	
+}
+
 void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)
 {
 	if (!MatchesCategory(Item)) return;
@@ -322,7 +328,8 @@ UINV_SlottedItem* UINV_InventoryGrid::CreateSlottedItem(
 	SlottedItem->SetIsStackable(bStackable);
 	const int32 StackUpdateAmount = bStackable ? StackAmount : 0;
 	SlottedItem->UpdateStackCount(StackUpdateAmount);
-		
+
+	SlottedItem->OnSlottedItemClicked.AddDynamic(this, &ThisClass::OnSlottedItemClicked);
 	
 	return SlottedItem;
 	
