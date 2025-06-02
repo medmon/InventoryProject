@@ -24,9 +24,15 @@ public:
 	FINV_ItemManifest GetItemManifest() const { return ItemManifest; }
 	
 	FString GetPickupMessage() const { return PickupMessage; }
-		
-protected:
 
+	void PickedUp();
+
+	
+protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = "Inventory")
+	void OnPickedUp();
+
+	
 private:
 
 	UPROPERTY(EditAnywhere, Replicated, Category = "Inventory")
@@ -34,4 +40,6 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	FString PickupMessage;
+
+	
 };

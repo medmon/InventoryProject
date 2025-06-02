@@ -7,6 +7,7 @@
 #include "Net/UnrealNetwork.h"
 #include "Widgets/Inventory/InventoryBase/INV_InventoryBase.h"
 #include "Items/INV_InventoryItem.h"
+#include "Items/Fragments/INV_ItemFragment.h"
 
 // Sets default values for this component's properties
 UINV_InventoryComponent::UINV_InventoryComponent() : InventoryList(this)
@@ -64,8 +65,9 @@ void UINV_InventoryComponent::Server_AddNewItem_Implementation(UINV_ItemComponen
 	{
 		OnItemAdded.Broadcast(NewItem);
 	}
-	
-	//TODO: Tell the item component to destroy its owning actor
+
+	//tell the item component to destroy owning actor
+	ItemComponent->PickedUp();
 	
 }
 
@@ -80,6 +82,15 @@ void UINV_InventoryComponent::Server_AddStacksToItem_Implementation(UINV_ItemCom
 
 	//TODO: Tell the item component to destroy its owning actor if the remainder is zero
 	// otherwise update the stack count for the item pickup
+
+	if (Remainder == 0)
+	{
+		ItemComponent->PickedUp();
+	}
+	else if (FINV_StackableFragment* StackableFragment = ItemComponent->GetItemManifest().GetFragmentOfTypeMutable<FINV_StackableFragment>())
+	{
+		StackableFragment->SetStackCount(Remainder);
+	}
 	
 }
 

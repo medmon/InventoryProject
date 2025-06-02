@@ -24,3 +24,10 @@ void UINV_ItemComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	
 }
 
+void UINV_ItemComponent::PickedUp()
+{
+	OnPickedUp();
+	GetOwner()->Destroy();
+	
+}
+
