@@ -25,6 +25,7 @@ void UINV_InventoryGrid::NativeOnInitialized()
 
 	InventoryComponent = UINV_InventoryStatics::GetInventoryComponent(GetOwningPlayer());
 	InventoryComponent->OnItemAdded.AddDynamic(this, &ThisClass::AddItem);
+	InventoryComponent->OnStackChange.AddDynamic(this, &ThisClass::AddStacks);
 }
 
 FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const UINV_ItemComponent* ItemComponent) 
@@ -236,6 +237,11 @@ int32 UINV_InventoryGrid::GetStackAmount(const UINV_GridSlot* GridSlot) const
 	}
 
 	return CurrentSlotStackCount;
+}
+
+void UINV_InventoryGrid::AddStacks(const FINV_SlotAvailabilityResult& Result)
+{
+	
 }
 
 void UINV_InventoryGrid::AddItem(UINV_InventoryItem* Item)

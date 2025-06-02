@@ -113,7 +113,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	float TileSize;
 
-	
+	UFUNCTION()
+	void AddStacks(const FINV_SlotAvailabilityResult& Result);
 	
 		
 	
