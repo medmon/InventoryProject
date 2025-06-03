@@ -47,3 +47,36 @@ struct FINV_SlotAvailabilityResult
 	TArray<FINV_SlotAvailability> SlotAvailabilities;
 	
 };
+
+UENUM(BlueprintType)
+enum class EINV_TileQuadrant : uint8
+{
+	TopLeft,
+	TopRight,
+	BottomLeft,
+	BottomRight,
+	None
+};
+
+USTRUCT(BlueprintType)
+struct FINV_TileParameters
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory")
+	FIntPoint TileCoordinates;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory")
+	int32 TileIndex{INDEX_NONE};
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory")
+	EINV_TileQuadrant TileQuadrant{EINV_TileQuadrant::None};
+
+
+};
+
+inline bool operator==(const FINV_TileParameters& A, const FINV_TileParameters& B)
+{
+	return A.TileCoordinates == B.TileCoordinates && A.TileIndex == B.TileIndex && A.TileQuadrant == B.TileQuadrant;
+	
+}

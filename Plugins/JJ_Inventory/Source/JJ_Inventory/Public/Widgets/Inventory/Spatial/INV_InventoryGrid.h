@@ -127,6 +127,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UINV_HoverItem> HoverItem;
+
+	FINV_TileParameters TileParameters;
+	FINV_TileParameters LastTileParameters;
 	
 	UFUNCTION()
 	void AddStacks(const FINV_SlotAvailabilityResult& Result);
