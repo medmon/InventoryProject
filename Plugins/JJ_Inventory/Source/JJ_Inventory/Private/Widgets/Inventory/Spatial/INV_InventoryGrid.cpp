@@ -54,6 +54,20 @@ void UINV_InventoryGrid::UpdateTileParameters(const FVector2D& CanvasPosition, c
 	TileParameters.TileQuadrant = CalculateTileQuadrant(CanvasPosition, MousePosition);
 	
 	// handle highligh/unhighlight of the grid slots
+	OnTileParametersUpdated(TileParameters);
+	
+}
+
+void UINV_InventoryGrid::OnTileParametersUpdated(const FINV_TileParameters Parameters)
+{
+	if (!IsValid(HoverItem)) return;
+	
+	// Get Hover Item's Dimensions
+	// Calculate the starting coords for highlighting
+	// Check Hover Position
+		// are the dimensions in grid bounds
+		// are there item(s) in the way
+		// is there only 1 item in the way (can we swap hover item)
 }
 
 FIntPoint UINV_InventoryGrid::CalculateHoveredCoordinates(const FVector2D& CanvasPosition,
@@ -86,6 +100,7 @@ EINV_TileQuadrant UINV_InventoryGrid::CalculateTileQuadrant(const FVector2D& Can
 	return HoveredTileQuadrant;
 	
 }
+
 
 FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const UINV_ItemComponent* ItemComponent) 
 {
