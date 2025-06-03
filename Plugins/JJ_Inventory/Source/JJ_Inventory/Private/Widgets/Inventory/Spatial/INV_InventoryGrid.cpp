@@ -3,6 +3,7 @@
 
 #include "Widgets/Inventory/Spatial/INV_InventoryGrid.h"
 
+#include "JJ_Inventory.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -66,6 +67,7 @@ void UINV_InventoryGrid::OnTileParametersUpdated(const FINV_TileParameters Param
 	const FIntPoint Dimensions = HoverItem->GetGridDimensions();
 	
 	// Calculate the starting coords for highlighting
+	const FIntPoint StartingCoordinate = CalculateStartingCoordinate(Parameters.TileCoordinates, Dimensions, Parameters.TileQuadrant);
 
 	
 	// Check Hover Position
@@ -74,8 +76,48 @@ void UINV_InventoryGrid::OnTileParametersUpdated(const FINV_TileParameters Param
 		// is there only 1 item in the way (can we swap hover item)
 }
 
+FIntPoint UINV_InventoryGrid::CalculateStartingCoordinate(const FIntPoint& Coordinate, const FIntPoint& Dimensions,
+	const EINV_TileQuadrant Quadrant) const
+{
+	const int32 HasEvenWidth = Dimensions.X % 2 == 0 ? 1 : 0;
+	const int32 HasEvenHeight = Dimensions.Y % 2 == 0 ? 1 : 0;
+
+	FIntPoint StartingCoord;
+	switch (Quadrant)
+	{
+		case EINV_TileQuadrant::TopLeft:
+			StartingCoord.X = Coordinate.X - FMath::FloorToInt(0.5f * Dimensions.X);
+			StartingCoord.Y = Coordinate.Y - FMath::FloorToInt(0.5f * Dimensions.Y);
+		break;
+		
+		case EINV_TileQuadrant::TopRight:
+			StartingCoord.X = Coordinate.X - FMath::FloorToInt(0.5f * Dimensions.X) + HasEvenWidth;
+			StartingCoord.Y = Coordinate.Y - FMath::FloorToInt(0.5f * Dimensions.Y);
+			
+		break;
+
+		case EINV_TileQuadrant::BottomLeft:
+			StartingCoord.X = Coordinate.X - FMath::FloorToInt(0.5f * Dimensions.X);
+			StartingCoord.Y = Coordinate.Y - FMath::FloorToInt(0.5f * Dimensions.Y) + HasEvenHeight;
+
+		break;
+
+		case EINV_TileQuadrant::BottomRight:
+			StartingCoord.X = Coordinate.X - FMath::FloorToInt(0.5f * Dimensions.X) + HasEvenWidth;
+			StartingCoord.Y = Coordinate.Y - FMath::FloorToInt(0.5f * Dimensions.Y) + HasEvenHeight;
+
+		break;
+	default:
+		UE_LOG(LogInventory, Error, TEXT("Invalid Quadrant in UINV_InventoryGrid::CalculateStartingCoordinates()."));
+		return FIntPoint(-1,-1);
+	}
+
+	return StartingCoord;
+	
+}
+
 FIntPoint UINV_InventoryGrid::CalculateHoveredCoordinates(const FVector2D& CanvasPosition,
-	const FVector2D& MousePosition) const
+                                                          const FVector2D& MousePosition) const
 {
 	return FIntPoint {	static_cast<int32>(FMath::FloorToInt((MousePosition.X - CanvasPosition.X) / TileSize)),
 						static_cast<int32>(FMath::FloorToInt((MousePosition.Y - CanvasPosition.Y) / TileSize))
