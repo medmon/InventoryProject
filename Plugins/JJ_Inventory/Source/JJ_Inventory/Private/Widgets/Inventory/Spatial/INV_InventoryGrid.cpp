@@ -81,6 +81,8 @@ FINV_SpaceQueryResult UINV_InventoryGrid::CheckHoverPosition(const FIntPoint& Po
 	FINV_SpaceQueryResult Result;
 	
 	// are the dimensions in grid bounds
+	if (!IsInGridBounds(UINV_WidgetUtils::GetIndexFromPosition(Position, Columns), Dimensions)) return Result;
+		
 	// are there item(s) in the way
 	// is there only 1 item in the way (can we swap hover item)
 	return Result;
