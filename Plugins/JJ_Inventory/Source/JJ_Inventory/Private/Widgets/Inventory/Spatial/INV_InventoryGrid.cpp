@@ -253,7 +253,7 @@ bool UINV_InventoryGrid::IsLeftClick(const FPointerEvent& MouseEvent) const
 void UINV_InventoryGrid::PickUp(UINV_InventoryItem* ClickedInventoryItem, const int32 GridIndex)
 {
 	//assign the hover item
-	AssignHoverItem(ClickedInventoryItem);
+	AssignHoverItem(ClickedInventoryItem, GridIndex, GridIndex);
 	
 	// remove clicked item from grid
 }
@@ -284,6 +284,15 @@ void UINV_InventoryGrid::AssignHoverItem(UINV_InventoryItem* InventoryItem)
 
 	GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, HoverItem);
 	
+}
+
+void UINV_InventoryGrid::AssignHoverItem(UINV_InventoryItem* InventoryItem, const int32 GridIndex,
+	const int32 PreviousGridIndex)
+{
+	AssignHoverItem(InventoryItem);
+
+	HoverItem->SetPreviousGridIndex(PreviousGridIndex);
+	HoverItem->UpdateStackCount(InventoryItem->IsStackable() ? GridSlots[GridIndex]->GetStackCount() : 0);
 }
 
 void UINV_InventoryGrid::AddStacks(const FINV_SlotAvailabilityResult& Result)
