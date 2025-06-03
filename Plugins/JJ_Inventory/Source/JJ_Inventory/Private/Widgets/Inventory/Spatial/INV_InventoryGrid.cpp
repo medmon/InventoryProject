@@ -68,12 +68,22 @@ void UINV_InventoryGrid::OnTileParametersUpdated(const FINV_TileParameters Param
 	
 	// Calculate the starting coords for highlighting
 	const FIntPoint StartingCoordinate = CalculateStartingCoordinate(Parameters.TileCoordinates, Dimensions, Parameters.TileQuadrant);
-
+	ItemDropIndex = UINV_WidgetUtils::GetIndexFromPosition(StartingCoordinate, Columns);
 	
 	// Check Hover Position
-		// are the dimensions in grid bounds
-		// are there item(s) in the way
-		// is there only 1 item in the way (can we swap hover item)
+	CurrentQueryResult = CheckHoverPosition(StartingCoordinate, Dimensions);
+	
+}
+
+FINV_SpaceQueryResult UINV_InventoryGrid::CheckHoverPosition(const FIntPoint& Position,
+	const FIntPoint& Dimensions) const
+{
+	FINV_SpaceQueryResult Result;
+	
+	// are the dimensions in grid bounds
+	// are there item(s) in the way
+	// is there only 1 item in the way (can we swap hover item)
+	return Result;
 }
 
 FIntPoint UINV_InventoryGrid::CalculateStartingCoordinate(const FIntPoint& Coordinate, const FIntPoint& Dimensions,
@@ -115,6 +125,7 @@ FIntPoint UINV_InventoryGrid::CalculateStartingCoordinate(const FIntPoint& Coord
 	return StartingCoord;
 	
 }
+
 
 FIntPoint UINV_InventoryGrid::CalculateHoveredCoordinates(const FVector2D& CanvasPosition,
                                                           const FVector2D& MousePosition) const

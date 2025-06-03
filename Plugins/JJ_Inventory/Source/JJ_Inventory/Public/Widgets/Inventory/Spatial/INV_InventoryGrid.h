@@ -98,7 +98,14 @@ private:
 	EINV_TileQuadrant CalculateTileQuadrant(const FVector2D& CanvasPosition, const FVector2D& MousePosition) const;
 	void OnTileParametersUpdated(const FINV_TileParameters Parameters);
 	FIntPoint CalculateStartingCoordinate(const FIntPoint& Coordinate, const FIntPoint& Dimensions, const EINV_TileQuadrant Quadrant) const;
+	FINV_SpaceQueryResult CheckHoverPosition(const FIntPoint& Position, const FIntPoint& Dimensions) const;
 	
+	UFUNCTION()
+	void AddStacks(const FINV_SlotAvailabilityResult& Result);
+
+	UFUNCTION()
+	void OnSlottedItemClicked(int32 GridIndex, const FPointerEvent& MouseEvent);
+
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")
 	EINV_ItemCategory ItemCategory;
@@ -135,14 +142,11 @@ private:
 
 	FINV_TileParameters TileParameters;
 	FINV_TileParameters LastTileParameters;
-	
-	UFUNCTION()
-	void AddStacks(const FINV_SlotAvailabilityResult& Result);
 
+	// index where an item would be placed if we click on the grid at a valid location
+	int32 ItemDropIndex{INDEX_NONE};	
 
-	UFUNCTION()
-	void OnSlottedItemClicked(int32 GridIndex, const FPointerEvent& MouseEvent);
+	FINV_SpaceQueryResult CurrentQueryResult;
 
-	
 	
 };

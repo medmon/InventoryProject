@@ -80,3 +80,20 @@ inline bool operator==(const FINV_TileParameters& A, const FINV_TileParameters& 
 	return A.TileCoordinates == B.TileCoordinates && A.TileIndex == B.TileIndex && A.TileQuadrant == B.TileQuadrant;
 	
 }
+
+USTRUCT()
+struct FINV_SpaceQueryResult
+{
+	GENERATED_BODY()
+
+	// true if the space queried has no items in it
+	bool bHasSpace{false};
+
+	// Valid if there is a single item we can swap with
+	TWeakObjectPtr<UINV_InventoryItem> ValidItem = nullptr;
+
+	// Index where the hover item would be placed if we click on the grid at a valid location
+	int32 UpperLeftIndex{INDEX_NONE};
+
+	
+};
