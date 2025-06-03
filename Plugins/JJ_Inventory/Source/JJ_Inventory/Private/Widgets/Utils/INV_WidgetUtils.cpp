@@ -3,6 +3,27 @@
 
 #include "Widgets/Utils/INV_WidgetUtils.h"
 
+#include "Blueprint/SlateBlueprintLibrary.h"
+#include "Components/Widget.h"
+
+FVector2D  UINV_WidgetUtils::GetWidgetPosition(UWidget* Widget)
+{
+	const FGeometry Geometry = Widget->GetCachedGeometry();
+
+	FVector2D PixelPosition;
+	FVector2D ViewportPosition;
+	
+	USlateBlueprintLibrary::LocalToViewport(	Widget,
+												Geometry,
+												USlateBlueprintLibrary::GetLocalTopLeft(Geometry),
+												PixelPosition,
+												ViewportPosition);
+	
+	return ViewportPosition;
+}
+
+
+
 int32 UINV_WidgetUtils::GetIndexFromPosition(const FIntPoint& Position, const int32 Columns)
 {
 	return Position.X + Position.Y * Columns;

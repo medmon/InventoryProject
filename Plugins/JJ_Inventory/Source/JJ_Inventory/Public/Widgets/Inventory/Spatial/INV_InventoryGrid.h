@@ -27,6 +27,7 @@ class JJ_INVENTORY_API UINV_InventoryGrid : public UUserWidget
 public:
 
 	virtual void NativeOnInitialized() override;
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 	
 	EINV_ItemCategory GetItemCategory() const { return ItemCategory; }
 
@@ -92,7 +93,7 @@ private:
 	void AssignHoverItem(UINV_InventoryItem* InventoryItem);
 	void AssignHoverItem(UINV_InventoryItem* InventoryItem, const int32 GridIndex, const int32 PreviousGridIndex);
 	void RemoveItemFromGrid(UINV_InventoryItem* InventoryItem, const int32 GridIndex);
-
+	void UpdateTileParameters(const FVector2D& CanvasPosition, const FVector2D& MousePosition);
 
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Inventory")

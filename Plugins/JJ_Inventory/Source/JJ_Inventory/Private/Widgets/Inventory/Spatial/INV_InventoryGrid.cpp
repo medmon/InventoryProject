@@ -29,6 +29,23 @@ void UINV_InventoryGrid::NativeOnInitialized()
 	InventoryComponent->OnStackChange.AddDynamic(this, &ThisClass::AddStacks);
 }
 
+void UINV_InventoryGrid::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	const FVector2d CanvasPosition = UINV_WidgetUtils::GetWidgetPosition(CanvasPanel);
+	const FVector2D MousePosition = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetOwningPlayer());
+
+	UpdateTileParameters(CanvasPosition, MousePosition);
+	
+}
+
+void UINV_InventoryGrid::UpdateTileParameters(const FVector2D& CanvasPosition, const FVector2D& MousePosition)
+{
+	// Calculate the tile quadrant
+	// handle highligh/unhighlight of the grid slots
+}
+
 FINV_SlotAvailabilityResult UINV_InventoryGrid::HasRoomForItem(const UINV_ItemComponent* ItemComponent) 
 {
 	return HasRoomForItem(ItemComponent->GetItemManifest());
@@ -325,6 +342,8 @@ void UINV_InventoryGrid::RemoveItemFromGrid(UINV_InventoryItem* InventoryItem, c
 	}
 	
 }
+
+
 
 void UINV_InventoryGrid::AddStacks(const FINV_SlotAvailabilityResult& Result)
 {
