@@ -37,6 +37,13 @@ void UINV_InventoryGrid::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 	const FVector2d CanvasPosition = UINV_WidgetUtils::GetWidgetPosition(CanvasPanel);
 	const FVector2D MousePosition = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetOwningPlayer());
 
+	if (CursorExitedCanvas(CanvasPosition, UINV_WidgetUtils::GetWidgetSize(CanvasPanel), MousePosition))
+	{
+		//TODO: UnhighlightSlots()
+		
+		return;
+	}
+	
 	UpdateTileParameters(CanvasPosition, MousePosition);
 	
 }
@@ -109,8 +116,23 @@ FINV_SpaceQueryResult UINV_InventoryGrid::CheckHoverPosition(const FIntPoint& Po
 	return Result;
 }
 
+bool UINV_InventoryGrid::CursorExitedCanvas(const FVector2D BoundaryPos, const FVector2D BoundarySize,
+	const FVector2D Location)
+{
+	bLastMouseWithinCanvas = bMouseWithinCanvas;
+	bMouseWithinCanvas = UINV_WidgetUtils::IsWithinBounds(BoundaryPos, BoundarySize, Location);
+	if (!bMouseWithinCanvas && bLastMouseWithinCanvas)
+	{
+		// UnhighlightSlots()
+		return true;
+	}
+
+	return false;
+	
+}
+
 FIntPoint UINV_InventoryGrid::CalculateStartingCoordinate(const FIntPoint& Coordinate, const FIntPoint& Dimensions,
-	const EINV_TileQuadrant Quadrant) const
+                                                          const EINV_TileQuadrant Quadrant) const
 {
 	const int32 HasEvenWidth = Dimensions.X % 2 == 0 ? 1 : 0;
 	const int32 HasEvenHeight = Dimensions.Y % 2 == 0 ? 1 : 0;
