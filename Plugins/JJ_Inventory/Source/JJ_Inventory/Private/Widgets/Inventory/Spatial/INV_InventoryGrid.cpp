@@ -76,15 +76,36 @@ void UINV_InventoryGrid::OnTileParametersUpdated(const FINV_TileParameters Param
 }
 
 FINV_SpaceQueryResult UINV_InventoryGrid::CheckHoverPosition(const FIntPoint& Position,
-	const FIntPoint& Dimensions) const
+	const FIntPoint& Dimensions) 
 {
 	FINV_SpaceQueryResult Result;
 	
 	// are the dimensions in grid bounds
 	if (!IsInGridBounds(UINV_WidgetUtils::GetIndexFromPosition(Position, Columns), Dimensions)) return Result;
+
+	Result.bHasSpace = true;
+	
+	// are there item(s) in the way (check all tiles in the dimensions)
+	TSet<int32> OccupiedUpperLeftIndices;
+	UINV_InventoryStatics::ForEach2D(GridSlots, UINV_WidgetUtils::GetIndexFromPosition(Position, Columns), Dimensions, Columns,[&](const UINV_GridSlot* GridSlot)
+	{
+		if (GridSlot->GetInventoryItem().IsValid())
+		{
+			OccupiedUpperLeftIndices.Add(GridSlot->GetUpperLeftIndex());
+			Result.bHasSpace = false;
+		}
 		
-	// are there item(s) in the way
+	});
+		
 	// is there only 1 item in the way (can we swap hover item)
+	if (OccupiedUpperLeftIndices.Num() == 1)   // single item at position, is valid for swapping/combining
+	{
+		const int32 Index = *OccupiedUpperLeftIndices.CreateConstIterator();
+		Result.ValidItem = GridSlots[Index]->GetInventoryItem();
+		Result.UpperLeftIndex = GridSlots[Index]->GetUpperLeftIndex();
+		
+	}
+		
 	return Result;
 }
 
