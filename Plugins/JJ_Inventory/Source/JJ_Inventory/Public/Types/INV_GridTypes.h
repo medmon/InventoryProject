@@ -64,7 +64,7 @@ struct FINV_TileParameters
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory")
-	FIntPoint TileCoordinates;
+	FIntPoint TileCoordinates{0,0};
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Inventory")
 	int32 TileIndex{INDEX_NONE};

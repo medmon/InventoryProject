@@ -39,8 +39,6 @@ void UINV_InventoryGrid::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 
 	if (CursorExitedCanvas(CanvasPosition, UINV_WidgetUtils::GetWidgetSize(CanvasPanel), MousePosition))
 	{
-		//TODO: UnhighlightSlots()
-		
 		return;
 	}
 	
@@ -51,6 +49,8 @@ void UINV_InventoryGrid::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 void UINV_InventoryGrid::UpdateTileParameters(const FVector2D& CanvasPosition, const FVector2D& MousePosition)
 {
 	// if mouse not in canvas panel, early return
+
+	if (!bMouseWithinCanvas) return;
 	
 	// Calculate the tile quadrant, tile index and coordinates
 
@@ -79,6 +79,18 @@ void UINV_InventoryGrid::OnTileParametersUpdated(const FINV_TileParameters Param
 	
 	// Check Hover Position
 	CurrentQueryResult = CheckHoverPosition(StartingCoordinate, Dimensions);
+
+	if (CurrentQueryResult.bHasSpace)
+	{
+		HighlightSlots(ItemDropIndex, Dimensions);
+		return;
+	}
+	UnHighlightSlots(LastHighlightedIndex, LastHighlightedDimensions);
+
+	if (CurrentQueryResult.ValidItem.IsValid())
+	{
+		//TODO:  there is a single item in this slot, we can swap or add stacks
+	}
 	
 }
 
@@ -123,12 +135,44 @@ bool UINV_InventoryGrid::CursorExitedCanvas(const FVector2D BoundaryPos, const F
 	bMouseWithinCanvas = UINV_WidgetUtils::IsWithinBounds(BoundaryPos, BoundarySize, Location);
 	if (!bMouseWithinCanvas && bLastMouseWithinCanvas)
 	{
-		// UnhighlightSlots()
+		UnHighlightSlots(LastHighlightedIndex, LastHighlightedDimensions);
 		return true;
 	}
 
 	return false;
 	
+}
+
+void UINV_InventoryGrid::HighlightSlots(const int32 Index, const FIntPoint& Dimensions)
+{
+	if (!bMouseWithinCanvas) return;
+
+	UnHighlightSlots(LastHighlightedIndex, LastHighlightedDimensions);
+	
+	UINV_InventoryStatics::ForEach2D(GridSlots, Index, Dimensions, Columns, [&](UINV_GridSlot* GridSlot)
+	{
+		GridSlot->SetOccupiedTexture();
+	});
+
+	LastHighlightedDimensions = Dimensions;
+	LastHighlightedIndex = Index;
+	
+	
+}
+void UINV_InventoryGrid::UnHighlightSlots(const int32 Index, const FIntPoint& Dimensions)
+{
+	UINV_InventoryStatics::ForEach2D(GridSlots, Index, Dimensions, Columns, [&](UINV_GridSlot* GridSlot)
+	{
+		if (GridSlot->IsAvailable())
+		{
+			GridSlot->SetUnoccupiedTexture();				
+		}
+		else
+		{
+			GridSlot->SetOccupiedTexture();
+		}
+	});
+
 }
 
 FIntPoint UINV_InventoryGrid::CalculateStartingCoordinate(const FIntPoint& Coordinate, const FIntPoint& Dimensions,

@@ -51,7 +51,7 @@ public:
 	
 private:
 
-	int32 TileIndex;
+	int32 TileIndex{INDEX_NONE};
 
 	int32 StackCount{0};
 	int32 UpperLeftIndex{INDEX_NONE};
