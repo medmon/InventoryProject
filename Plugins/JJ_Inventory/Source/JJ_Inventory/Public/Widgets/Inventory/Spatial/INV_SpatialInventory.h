@@ -57,5 +57,5 @@ private:
 	void ShowCrafting();
 
 	void SetActiveGrid(UINV_InventoryGrid* Grid, UButton* Button);
-	
+	TWeakObjectPtr<UINV_InventoryGrid> ActiveGrid;
 };

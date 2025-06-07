@@ -54,6 +54,10 @@ void UINV_SpatialInventory::ShowCrafting()
 
 void UINV_SpatialInventory::SetActiveGrid(UINV_InventoryGrid* Grid, UButton* Button)
 {
+	if (ActiveGrid.IsValid())	ActiveGrid->HideCursor();
+	ActiveGrid = Grid;
+	if (ActiveGrid.IsValid())	ActiveGrid->ShowCursor();
+	
 	Button_Equipment->SetIsEnabled(true);
 	Button_Consumables->SetIsEnabled(true);
 	Button_Crafting->SetIsEnabled(true);

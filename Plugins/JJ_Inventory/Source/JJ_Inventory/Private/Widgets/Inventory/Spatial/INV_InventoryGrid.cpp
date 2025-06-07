@@ -832,7 +832,50 @@ void UINV_InventoryGrid::ClearHoverItem()
 	HoverItem->RemoveFromParent();
 	HoverItem = nullptr;
 
-	//TODO: Show Mouse Cursor
+	// Show Mouse Cursor
+	ShowCursor();
+	
+	
+}
+
+UUserWidget* UINV_InventoryGrid::GetVisibleCursorWidget()
+{
+	if (!IsValid(GetOwningPlayer())) return nullptr;
+
+	if (!IsValid(VisibleCursorWidget))
+	{
+		VisibleCursorWidget = CreateWidget<UUserWidget>(GetOwningPlayer(), VisibleCursorWidgetClass);
+	}
+
+	return VisibleCursorWidget;
+}
+
+UUserWidget* UINV_InventoryGrid::GetHiddenCursorWidget()
+{
+	if (!IsValid(GetOwningPlayer())) return nullptr;
+
+	if (!IsValid(HiddenCursorWidget))
+	{
+		HiddenCursorWidget = CreateWidget<UUserWidget>(GetOwningPlayer(), HiddenCursorWidgetClass);
+	}
+
+	return HiddenCursorWidget;
+
+}
+
+void UINV_InventoryGrid::ShowCursor()
+{
+	if (!IsValid(GetOwningPlayer())) return;
+	
+	GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, GetVisibleCursorWidget());
+}
+
+void UINV_InventoryGrid::HideCursor()
+{
+	if (!IsValid(GetOwningPlayer())) return;
+	
+	GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, GetHiddenCursorWidget());
+
 }
 
 

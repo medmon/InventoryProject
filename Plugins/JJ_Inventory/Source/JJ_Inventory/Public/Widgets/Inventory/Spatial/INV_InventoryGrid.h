@@ -36,6 +36,9 @@ public:
 	FINV_SlotAvailabilityResult HasRoomForItem(const UINV_InventoryItem* Item) ;
 	FINV_SlotAvailabilityResult HasRoomForItem(const FINV_ItemManifest& Manifest) ;
 
+	void ShowCursor();
+	void HideCursor();
+
 	
 	UFUNCTION()
 	void AddItem(UINV_InventoryItem* Item);
@@ -106,8 +109,22 @@ private:
 	void ChangeHoverType( const int32 Index, const FIntPoint& Dimensions, EINV_GridSlotState GridSlotState);
 	void PutDownOnIndex(const int32 Index);
 	void ClearHoverItem();
+	UUserWidget* GetVisibleCursorWidget();
+	UUserWidget* GetHiddenCursorWidget();
+
 	
+	UPROPERTY()
+	TObjectPtr<UUserWidget> VisibleCursorWidget;
+	UPROPERTY()
+	TObjectPtr<UUserWidget> HiddenCursorWidget;
 	
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	TSubclassOf<UUserWidget> VisibleCursorWidgetClass;
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	TSubclassOf<UUserWidget> HiddenCursorWidgetClass;
+
+
+
 	UFUNCTION()
 	void AddStacks(const FINV_SlotAvailabilityResult& Result);
 
