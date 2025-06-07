@@ -613,9 +613,15 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 	{
 		// take slotted item here - assign the hover item and remove the slotted item from the grid
 		PickUp(ClickedInventoryItem, GridIndex);
+		return;
 	}
 	
-	UE_LOG(LogTemp, Warning, TEXT("InventoryGrid::OnSlottedItemClicked - %d"), GridIndex);
+	// Do the hover item and the clicked inventory item share an item type, and are they stackable
+		// should we swap their stack counts?
+		// Should we consume the hover item?
+		// Should we fill in the stacks of the clicked item (and not consume the hover item)
+		// is there no room in the clicked slot
+	// swap with thr hover item
 	
 }
 
