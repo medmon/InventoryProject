@@ -617,12 +617,18 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 	}
 	
 	// Do the hover item and the clicked inventory item share an item type, and are they stackable
+	if (IsSameStackable(ClickedInventoryItem))
+	{
 		// should we swap their stack counts?
 		// Should we consume the hover item?
 		// Should we fill in the stacks of the clicked item (and not consume the hover item)
 		// is there no room in the clicked slot
-	// swap with thr hover item
+		return;
+	}
 	
+	// swap with the hover item
+	SwapWithHoverItem(ClickedInventoryItem, GridIndex);
+
 }
 
 
@@ -801,7 +807,7 @@ void UINV_InventoryGrid::OnGridSlotClicked(int32 GridIndex,const FPointerEvent& 
 	if (!IsValid(HoverItem)) return;
 	if (!GridSlots.IsValidIndex(ItemDropIndex)) return;
 
-	if (CurrentQueryResult.ValidItem.IsValid() && CurrentQueryResult.UpperLeftIndex)
+	if (CurrentQueryResult.ValidItem.IsValid() && GridSlots.IsValidIndex(CurrentQueryResult.UpperLeftIndex))
 	{
 		OnSlottedItemClicked(CurrentQueryResult.UpperLeftIndex, MouseEvent);
 		return;
@@ -867,6 +873,31 @@ UUserWidget* UINV_InventoryGrid::GetHiddenCursorWidget()
 
 	return HiddenCursorWidget;
 
+}
+
+bool UINV_InventoryGrid::IsSameStackable(const UINV_InventoryItem* ClickedInventoryItem) const
+{
+	const bool bIsSameItem = ClickedInventoryItem == HoverItem->GetInventoryItem();
+	const bool bIsStackable = ClickedInventoryItem->IsStackable();
+	return bIsSameItem && bIsStackable && HoverItem->GetItemType().MatchesTagExact(ClickedInventoryItem->GetItemManifest().GetItemType());
+	
+}
+
+void UINV_InventoryGrid::SwapWithHoverItem(UINV_InventoryItem* ClickedInventoryItem, const int32 GridIndex)
+{
+	if (!IsValid(HoverItem)) return;
+
+	UINV_InventoryItem* TempInventoryItem = HoverItem->GetInventoryItem();
+	const int32 TempStackCount = HoverItem->GetStackCount();
+	const bool bTempIsStackable = HoverItem->IsStackable();
+
+	// Keep the same previou grid index
+	AssignHoverItem(ClickedInventoryItem, GridIndex, HoverItem->GetPreviousGridIndex());
+	RemoveItemFromGrid(ClickedInventoryItem, GridIndex);
+	AddItemAtIndex(TempInventoryItem, ItemDropIndex, bTempIsStackable, TempStackCount);
+	UpdateGridSlots(TempInventoryItem, ItemDropIndex, bTempIsStackable, TempStackCount);
+	
+	
 }
 
 void UINV_InventoryGrid::ShowCursor()

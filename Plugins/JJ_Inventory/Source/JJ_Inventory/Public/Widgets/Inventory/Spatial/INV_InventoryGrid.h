@@ -111,7 +111,8 @@ private:
 	void ClearHoverItem();
 	UUserWidget* GetVisibleCursorWidget();
 	UUserWidget* GetHiddenCursorWidget();
-
+	bool IsSameStackable(const UINV_InventoryItem* ClickedInventoryItem) const;
+	void SwapWithHoverItem(UINV_InventoryItem* ClickedInventoryItem, const int32 GridIndex );
 	
 	UPROPERTY()
 	TObjectPtr<UUserWidget> VisibleCursorWidget;
