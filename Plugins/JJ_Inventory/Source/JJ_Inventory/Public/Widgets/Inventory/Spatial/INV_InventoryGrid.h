@@ -10,6 +10,7 @@
 #include "INV_InventoryGrid.generated.h"
 
 
+enum class EINV_GridSlotState : uint8;
 class UINV_HoverItem;
 class UINV_SlottedItem;
 class UINV_ItemComponent;
@@ -102,7 +103,7 @@ private:
 	bool CursorExitedCanvas(const FVector2D BoundaryPos, const FVector2D BoundarySize, const FVector2D Location);
 	void HighlightSlots (const int32 Index, const FIntPoint& Dimensions);
 	void UnHighlightSlots(const int32 Index, const FIntPoint& Dimensions);
-
+	void ChangeHoverType( const int32 Index, const FIntPoint& Dimensions, EINV_GridSlotState GridSlotState);
 	
 	UFUNCTION()
 	void AddStacks(const FINV_SlotAvailabilityResult& Result);

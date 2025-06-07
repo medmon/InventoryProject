@@ -87,9 +87,13 @@ void UINV_InventoryGrid::OnTileParametersUpdated(const FINV_TileParameters Param
 	}
 	UnHighlightSlots(LastHighlightedIndex, LastHighlightedDimensions);
 
-	if (CurrentQueryResult.ValidItem.IsValid())
+	if (CurrentQueryResult.ValidItem.IsValid() && GridSlots.IsValidIndex(CurrentQueryResult.UpperLeftIndex))
 	{
 		//TODO:  there is a single item in this slot, we can swap or add stacks
+		const FINV_GridFragment* GridFragment = GetFragment<FINV_GridFragment>(CurrentQueryResult.ValidItem.Get(), FragmentTags::GridFragment);
+		if (!GridFragment) return;
+
+		ChangeHoverType(CurrentQueryResult.UpperLeftIndex, GridFragment->GetGridSize(), EINV_GridSlotState::GrayedOut);
 	}
 	
 }
@@ -173,6 +177,36 @@ void UINV_InventoryGrid::UnHighlightSlots(const int32 Index, const FIntPoint& Di
 		}
 	});
 
+}
+
+void UINV_InventoryGrid::ChangeHoverType(const int32 Index, const FIntPoint& Dimensions,
+	EINV_GridSlotState GridSlotState)
+{
+	UnHighlightSlots(LastHighlightedIndex, LastHighlightedDimensions);
+	UINV_InventoryStatics::ForEach2D(GridSlots,Index,Dimensions,Columns,[State = GridSlotState](UINV_GridSlot* GridSlot)
+	{
+		switch  (State)
+		{
+		case EINV_GridSlotState::Occupied :
+			GridSlot->SetOccupiedTexture();
+			break;
+		case EINV_GridSlotState::Unoccupied :
+			GridSlot->SetUnoccupiedTexture();
+			break;
+		case EINV_GridSlotState::Selected :
+			GridSlot->SetSelectedTexture();
+			break;
+		case EINV_GridSlotState::GrayedOut :
+			GridSlot->SetGrayedOutTexture();
+			break;
+			
+		}
+		
+	});
+
+	LastHighlightedIndex = Index;
+	LastHighlightedDimensions = Dimensions;
+	
 }
 
 FIntPoint UINV_InventoryGrid::CalculateStartingCoordinate(const FIntPoint& Coordinate, const FIntPoint& Dimensions,
