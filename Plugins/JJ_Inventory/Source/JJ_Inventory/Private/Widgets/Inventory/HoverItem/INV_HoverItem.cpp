@@ -13,12 +13,15 @@ void UINV_HoverItem::SetImageBrush(const FSlateBrush& Brush) const
 	
 }
 
-void UINV_HoverItem::UpdateStackCount(const int32 Count) const
+void UINV_HoverItem::UpdateStackCount(const int32 Count) 
 {
+	StackCount = Count;
+	
 	if (Count > 0)
 	{
 		Text_StackCount->SetText(FText::AsNumber(Count));
 		Text_StackCount->SetVisibility(ESlateVisibility::Visible);
+		
 	}
 	else
 	{
@@ -30,6 +33,7 @@ void UINV_HoverItem::UpdateStackCount(const int32 Count) const
 
 void UINV_HoverItem::SetIsStackable(bool bStacks)
 {
+	bIsStackable = bStacks;
 	if (!bStacks)
 	{
 		Text_StackCount->SetVisibility(ESlateVisibility::Collapsed);
