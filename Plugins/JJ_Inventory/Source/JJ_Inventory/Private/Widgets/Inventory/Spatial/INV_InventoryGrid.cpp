@@ -627,7 +627,10 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 	}
 	
 	// swap with the hover item
-	SwapWithHoverItem(ClickedInventoryItem, GridIndex);
+	if (CurrentQueryResult.ValidItem.IsValid())
+	{
+		SwapWithHoverItem(ClickedInventoryItem, GridIndex);
+	}
 
 }
 
@@ -903,8 +906,14 @@ void UINV_InventoryGrid::SwapWithHoverItem(UINV_InventoryItem* ClickedInventoryI
 void UINV_InventoryGrid::ShowCursor()
 {
 	if (!IsValid(GetOwningPlayer())) return;
-	
-	GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, GetVisibleCursorWidget());
+	if (!IsValid(HoverItem))
+	{
+		GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, GetVisibleCursorWidget());
+	}
+	else
+	{
+		GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, HoverItem);
+	}
 }
 
 void UINV_InventoryGrid::HideCursor()
