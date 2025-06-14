@@ -619,8 +619,22 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 	// Do the hover item and the clicked inventory item share an item type, and are they stackable
 	if (IsSameStackable(ClickedInventoryItem))
 	{
+		const int32 ClickedStackCount = GridSlots[GridIndex]->GetStackCount();
+		const FINV_StackableFragment* StackableFragment =
+			ClickedInventoryItem->GetItemManifest().GetFragmentOfType<FINV_StackableFragment>();
+		const int32 MaxStackSize =  StackableFragment->GetMaxStackSize();
+		const int32 RoomInClickedSlot = MaxStackSize - ClickedStackCount;
+		const int32 HoveredStackCount = HoverItem->GetStackCount();
+
 		// should we swap their stack counts?
+		if (ShouldSwapStackCounts(RoomInClickedSlot,HoveredStackCount,MaxStackSize))
+		{
+			//TODO: Swap stack counts
+			
+		}
+		
 		// Should we consume the hover item?
+		
 		// Should we fill in the stacks of the clicked item (and not consume the hover item)
 		// is there no room in the clicked slot
 		return;
@@ -901,6 +915,12 @@ void UINV_InventoryGrid::SwapWithHoverItem(UINV_InventoryItem* ClickedInventoryI
 	UpdateGridSlots(TempInventoryItem, ItemDropIndex, bTempIsStackable, TempStackCount);
 	
 	
+}
+
+bool UINV_InventoryGrid::ShouldSwapStackCounts(const int32 RoomInClickedSlot, const int32 HoveredStackCount,
+	const int32 MaxStackSize)
+{
+	return RoomInClickedSlot == 0 && HoveredStackCount < MaxStackSize;
 }
 
 void UINV_InventoryGrid::ShowCursor()
