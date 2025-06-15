@@ -630,6 +630,7 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 		if (ShouldSwapStackCounts(RoomInClickedSlot,HoveredStackCount,MaxStackSize))
 		{
 			//TODO: Swap stack counts
+			SwapStackCounts(ClickedStackCount,HoveredStackCount,GridIndex);
 			
 		}
 		
@@ -921,6 +922,19 @@ bool UINV_InventoryGrid::ShouldSwapStackCounts(const int32 RoomInClickedSlot, co
 	const int32 MaxStackSize)
 {
 	return RoomInClickedSlot == 0 && HoveredStackCount < MaxStackSize;
+}
+
+void UINV_InventoryGrid::SwapStackCounts(const int32 ClickedStackCount, const int32 HoveredStackCount,
+	const int32 Index)
+{
+	UINV_GridSlot* GridSlot =  GridSlots[Index];
+	GridSlot->SetStackCount(HoveredStackCount);
+
+	UINV_SlottedItem* ClickedSlottedItem = SlottedItems.FindChecked(Index);
+	ClickedSlottedItem->UpdateStackCount(HoveredStackCount);
+	
+	HoverItem->UpdateStackCount(ClickedStackCount);
+	
 }
 
 void UINV_InventoryGrid::ShowCursor()
