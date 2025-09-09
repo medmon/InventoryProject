@@ -648,6 +648,7 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 		{
 			FillInStack(RoomInClickedSlot, HoveredStackCount - RoomInClickedSlot, GridIndex);
 			return;
+			
 		}
 		
 		// is there no room in the clicked slot
