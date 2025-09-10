@@ -17,7 +17,7 @@
 #include "Widgets/Inventory/HoverItem/INV_HoverItem.h"
 #include "Widgets/Inventory/SlottedItems/INV_SlottedItem.h"
 #include "Widgets/Utils/INV_WidgetUtils.h"
-
+#include "Widgets/ItemPopUp/INV_ItemPopUp.h"
 
 void UINV_InventoryGrid::NativeOnInitialized()
 {
@@ -615,6 +615,13 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 		PickUp(ClickedInventoryItem, GridIndex);
 		return;
 	}
+
+	//was mouse click a right click
+	if (IsRightClick(MouseEvent))
+	{
+		CreateItemPopUp(GridIndex);
+		return;
+	}
 	
 	// Do the hover item and the clicked inventory item share an item type, and are they stackable
 	if (IsSameStackable(ClickedInventoryItem))
@@ -664,6 +671,20 @@ void UINV_InventoryGrid::OnSlottedItemClicked(int32 GridIndex, const FPointerEve
 		SwapWithHoverItem(ClickedInventoryItem, GridIndex);
 	}
 
+}
+
+void UINV_InventoryGrid::CreateItemPopUp(const int32 GridIndex)
+{
+	UINV_InventoryItem* RightClickedItem = GridSlots[GridIndex]->GetInventoryItem().Get();
+	if (!IsValid(RightClickedItem)) return;
+
+	ItemPopUp = CreateWidget<UINV_ItemPopUp>(this, ItemPopUpClass);
+	OwningCanvasPanel->AddChild(ItemPopUp);
+	UCanvasPanelSlot* CanvasSlot = UWidgetLayoutLibrary::SlotAsCanvasSlot(ItemPopUp);
+	const FVector2D MousePosition = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetOwningPlayer());
+	CanvasSlot->SetPosition(MousePosition);
+	CanvasSlot->SetSize(ItemPopUp->GetBoxSize());
+	
 }
 
 
@@ -1016,6 +1037,11 @@ void UINV_InventoryGrid::HideCursor()
 	
 	GetOwningPlayer()->SetMouseCursorWidget(EMouseCursor::Default, GetHiddenCursorWidget());
 
+}
+
+void UINV_InventoryGrid::SetOwningCanvas(UCanvasPanel* OwningCanvas)
+{
+	OwningCanvasPanel = OwningCanvas;
 }
 
 

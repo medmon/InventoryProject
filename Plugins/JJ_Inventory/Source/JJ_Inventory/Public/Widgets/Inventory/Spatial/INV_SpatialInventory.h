@@ -9,6 +9,7 @@
 class UButton;
 class UWidgetSwitcher;
 class UINV_InventoryGrid;
+class UCanvasPanel;
 
 /**
  * 
@@ -26,6 +27,9 @@ public:
 
 	
 private:
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> CanvasPanel;
+
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UWidgetSwitcher> Switcher;
 

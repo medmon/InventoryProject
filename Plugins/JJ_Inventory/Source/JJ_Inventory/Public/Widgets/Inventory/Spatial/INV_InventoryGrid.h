@@ -10,6 +10,7 @@
 #include "INV_InventoryGrid.generated.h"
 
 
+class UINV_ItemPopUp;
 enum class EINV_GridSlotState : uint8;
 class UINV_HoverItem;
 class UINV_SlottedItem;
@@ -39,6 +40,7 @@ public:
 	void ShowCursor();
 	void HideCursor();
 
+	void SetOwningCanvas(UCanvasPanel* OwningCanvas);
 	
 	UFUNCTION()
 	void AddItem(UINV_InventoryItem* Item);
@@ -46,6 +48,7 @@ public:
 private:
 
 	TWeakObjectPtr<UINV_InventoryComponent> InventoryComponent;
+	TWeakObjectPtr<UCanvasPanel> OwningCanvasPanel;
 
 	void ConstructGrid();
 
@@ -119,7 +122,14 @@ private:
 	void ConsumeHoverItemStacks(const int32 ClickedStackCount, const int32 HoveredStackCount, const int32 Index);
 	bool ShouldFillInStack(const int32 RoomInClickedSlot, const int32 HoveredStackCount);
 	void FillInStack(const int32 FillAmount, const int32 Remainder, const int32 Index);
+	void CreateItemPopUp(const int32 GridIndex);
 
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	TSubclassOf<UINV_ItemPopUp> ItemPopUpClass;
+	UPROPERTY()
+	TObjectPtr<UINV_ItemPopUp> ItemPopUp;
+
+	
 	
 	UPROPERTY()
 	TObjectPtr<UUserWidget> VisibleCursorWidget;
