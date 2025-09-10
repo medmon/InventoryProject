@@ -27,3 +27,8 @@ bool UINV_InventoryItem::IsStackable() const
 	return Stackable != nullptr;
 	
 }
+
+bool UINV_InventoryItem::IsConsumable() const
+{
+	return GetItemManifest().GetItemCategory() == EINV_ItemCategory::Consumable;
+}

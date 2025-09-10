@@ -24,6 +24,8 @@ public:
 	FINV_ItemManifest& GetItemManifestMutable() { return ItemManifest.GetMutable<FINV_ItemManifest>(); }
 
 	bool IsStackable() const;
+	bool IsConsumable() const;
+	
 	int32 GetTotalStackCount() const { return TotalStackCount; }
 	void SetTotalStackCount(int32 Count) { TotalStackCount = Count; }private:
 
