@@ -45,7 +45,7 @@ public:
 	void SetSliderParams(const float Max, const float Value) const;
 	FVector2D GetBoxSize() const;
 
-	void SetGridIndex(const int32 Index) { GridIndex = Index };
+	void SetGridIndex(const int32 Index) { GridIndex = Index; }
 	int32 GetGridIndex() const { return GridIndex; }
 
 	
