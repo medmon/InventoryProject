@@ -691,7 +691,7 @@ void UINV_InventoryGrid::CreateItemPopUp(const int32 GridIndex)
 	const int32 SliderMax = GridSlots[GridIndex]->GetStackCount()-1;
 	if (RightClickedItem->IsStackable() && SliderMax > 0)
 	{
-		//bind to split delegate
+		//bind to OnSplit delegate
 		ItemPopUp->OnSplit.BindDynamic(this, &ThisClass::OnPopUpMenuSplit);
 		ItemPopUp->SetSliderParams(SliderMax, FMath::Max(1, GridSlots[GridIndex]->GetStackCount() / 2));
 		
@@ -701,10 +701,10 @@ void UINV_InventoryGrid::CreateItemPopUp(const int32 GridIndex)
 		ItemPopUp->CollapseSplitButton();
 	}
 	
-	//bind to Drop Delegate
+	//bind to OnDrop Delegate
 	ItemPopUp->OnDrop.BindDynamic(this, &ThisClass::OnPopUpMenuDrop);
 
-	//bind to consume delegate
+	//bind to OnConsume delegate
 	if (RightClickedItem->IsConsumable())
 	{
 		ItemPopUp->OnDrop.BindDynamic(this, &ThisClass::OnPopUpMenuConsume);
@@ -1101,6 +1101,23 @@ void UINV_InventoryGrid::OnGridSlotUnhovered(int32 GridIndex,const FPointerEvent
 
 void UINV_InventoryGrid::OnPopUpMenuSplit(int32 SplitAmount, int32 Index)
 {
+	//assign hover item
+	UINV_InventoryItem* RightClickedItem = GridSlots[Index]->GetInventoryItem().Get();
+	if (!IsValid(RightClickedItem)) return;
+	if (!RightClickedItem->IsStackable()) return;
+
+	const int32 UpperLeftIndex = GridSlots[Index]->GetUpperLeftIndex();
+	UINV_GridSlot* UpperLeftGridSlot = GridSlots[UpperLeftIndex];
+	const int32 StackCount = UpperLeftGridSlot->GetStackCount();
+	const int32 NewStackCount = StackCount - SplitAmount;
+
+	//update stack count
+	UpperLeftGridSlot->SetStackCount(NewStackCount);
+	SlottedItems.FindChecked(UpperLeftIndex)->UpdateStackCount(NewStackCount);
+
+	//assign hover item
+	AssignHoverItem(RightClickedItem, UpperLeftIndex, UpperLeftIndex);
+	HoverItem->UpdateStackCount(SplitAmount);	//update stack count for hover item
 	
 }
 
