@@ -32,13 +32,23 @@ class JJ_INVENTORY_API UINV_ItemPopUp : public UUserWidget
 	GENERATED_BODY()
 public:
 	virtual void NativeOnInitialized() override;
+	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 
 	FPopUpMenuSplit OnSplit;
 	FPopUpMenuDrop OnDrop;
 	FPopUpMenuConsume OnConsume;
 	
 	int32 GetSplitAmount() const;
+	
+	void CollapseSplitButton();
+	void CollapseConsumeButton();
+	void SetSliderParams(const float Max, const float Value) const;
+	FVector2D GetBoxSize() const;
 
+	void SetGridIndex(const int32 Index) { GridIndex = Index };
+	int32 GetGridIndex() const { return GridIndex; }
+
+	
 private:
 
 	UPROPERTY(meta = (BindWidget))
@@ -72,6 +82,8 @@ private:
 
 	UFUNCTION()
 	void SliderValueChanged(float Value);
+
+
 	
 };
 
