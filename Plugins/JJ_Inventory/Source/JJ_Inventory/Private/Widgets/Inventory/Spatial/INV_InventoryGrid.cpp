@@ -707,7 +707,7 @@ void UINV_InventoryGrid::CreateItemPopUp(const int32 GridIndex)
 	//bind to OnConsume delegate
 	if (RightClickedItem->IsConsumable())
 	{
-		ItemPopUp->OnDrop.BindDynamic(this, &ThisClass::OnPopUpMenuConsume);
+		ItemPopUp->OnConsume.BindDynamic(this, &ThisClass::OnPopUpMenuConsume);
 	}
 	else
 	{
@@ -715,6 +715,18 @@ void UINV_InventoryGrid::CreateItemPopUp(const int32 GridIndex)
 	}
 
 	
+}
+
+void UINV_InventoryGrid::DropItem()
+{
+	//drops the hover item on ground
+	if (!IsValid(HoverItem)) return;
+	if (!IsValid(HoverItem->GetInventoryItem())) return;
+
+	//TODO: Tell the server to actually drop the item
+
+	ClearHoverItem();
+	ShowCursor();
 }
 
 
@@ -1123,6 +1135,12 @@ void UINV_InventoryGrid::OnPopUpMenuSplit(int32 SplitAmount, int32 Index)
 
 void UINV_InventoryGrid::OnPopUpMenuDrop(int32 Index)
 {
+	//remove item from grid
+	UINV_InventoryItem* RightClickedItem = GridSlots[Index]->GetInventoryItem().Get();
+	if (!IsValid(RightClickedItem)) return;
+
+	PickUp(RightClickedItem, Index);
+	DropItem();
 	
 }
 
