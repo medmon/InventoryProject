@@ -19,18 +19,34 @@ void UINV_ItemPopUp::NativeOnInitialized()
 	
 }
 
+int32 UINV_ItemPopUp::GetSplitAmount() const
+{
+	return FMath::Floor(Slider_Split->GetValue());
+}
+
 void UINV_ItemPopUp::SplitButtonClicked()
 {
-	
+	if (OnSplit.ExecuteIfBound(GetSplitAmount(), GridIndex))
+	{
+		RemoveFromParent();
+	}
 }
 
 void UINV_ItemPopUp::DropButtonClicked()
 {
-	
+	if (OnDrop.ExecuteIfBound(GridIndex))
+	{
+		RemoveFromParent();
+	}
+
 }
 
 void UINV_ItemPopUp::ConsumeButtonClicked()
 {
+	if (OnConsume.ExecuteIfBound(GridIndex))
+	{
+		RemoveFromParent();
+	}
 	
 }
 
