@@ -81,8 +81,6 @@ void UINV_InventoryComponent::Server_AddStacksToItem_Implementation(UINV_ItemCom
 
 	Item->SetTotalStackCount(Item->GetTotalStackCount() + StackCount);
 
-	//TODO: Tell the item component to destroy its owning actor if the remainder is zero
-	// otherwise update the stack count for the item pickup
 
 	if (Remainder == 0)
 	{
@@ -113,7 +111,14 @@ void UINV_InventoryComponent::Server_DropItem_Implementation(UINV_InventoryItem*
 
 void UINV_InventoryComponent::SpawnDroppedItem(UINV_InventoryItem* Item, int32 StackCount)
 {
-	//TODO: Spawn the dropped item in the level
+	const APawn* OwningPawn = OwningController->GetPawn();
+	FVector RotatedForward = OwningPawn->GetActorForwardVector();
+	RotatedForward = RotatedForward.RotateAngleAxis(FMath::FRandRange(DropSpawnAngleMin, DropSpawnAngleMax), FVector::UpVector);
+	FVector SpawnLocation = OwningPawn->GetActorLocation() + RotatedForward * FMath::FRandRange(DropSpawnDistanceMin, DropSpawnDistanceMax);
+	SpawnLocation.Z += RelativeSpawnElevation;
+	const FRotator SpawnRotation = FRotator::ZeroRotator;
+
+	//TODO: Have the item manifest spawn the pickup actor
 	
 }
 
