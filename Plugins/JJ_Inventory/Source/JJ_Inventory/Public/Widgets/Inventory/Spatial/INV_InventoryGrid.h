@@ -45,6 +45,9 @@ public:
 	UFUNCTION()
 	void AddItem(UINV_InventoryItem* Item);
 
+	void DropItem();
+
+	
 private:
 
 	TWeakObjectPtr<UINV_InventoryComponent> InventoryComponent;
@@ -123,7 +126,6 @@ private:
 	bool ShouldFillInStack(const int32 RoomInClickedSlot, const int32 HoveredStackCount);
 	void FillInStack(const int32 FillAmount, const int32 Remainder, const int32 Index);
 	void CreateItemPopUp(const int32 GridIndex);
-	void DropItem();
 	
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	TSubclassOf<UINV_ItemPopUp> ItemPopUpClass;

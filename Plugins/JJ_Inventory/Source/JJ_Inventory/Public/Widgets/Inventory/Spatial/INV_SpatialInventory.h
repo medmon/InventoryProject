@@ -21,6 +21,7 @@ class JJ_INVENTORY_API UINV_SpatialInventory : public UINV_InventoryBase
 public:
 
 	virtual void NativeOnInitialized() override;
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 	virtual FINV_SlotAvailabilityResult HasRoomForItem(UINV_ItemComponent* ItemComponent) const override;
 	
