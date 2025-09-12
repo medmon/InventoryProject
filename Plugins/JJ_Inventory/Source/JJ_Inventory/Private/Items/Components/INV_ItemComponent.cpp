@@ -24,6 +24,11 @@ void UINV_ItemComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	
 }
 
+void UINV_ItemComponent::InitItemManifest(FINV_ItemManifest CopyOfManifest)
+{
+	ItemManifest = CopyOfManifest;
+}
+
 void UINV_ItemComponent::PickedUp()
 {
 	OnPickedUp();

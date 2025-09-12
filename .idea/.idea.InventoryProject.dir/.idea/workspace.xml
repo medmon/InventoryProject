@@ -22,7 +22,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://2" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://6" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_GridSlot.generated.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_InventoryGrid.gen.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_SlottedItem.gen.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -146,7 +146,7 @@
       <workItem from="1749403997451" duration="2506000" />
       <workItem from="1757411848572" duration="32347000" />
       <workItem from="1757601784300" duration="785000" />
-      <workItem from="1757602589353" duration="4380000" />
+      <workItem from="1757602589353" duration="9467000" />
     </task>
     <servers />
   </component>
