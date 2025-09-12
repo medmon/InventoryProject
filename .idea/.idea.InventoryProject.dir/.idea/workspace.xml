@@ -20,13 +20,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://12" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_GridSlot.generated.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_InventoryGrid.gen.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_SlottedItem.gen.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Projects/Unreal Projects/InventoryProject/Plugins/JJ_Inventory/Source/JJ_Inventory/Private/Widgets/Inventory/Spatial/INV_InventoryGrid.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/UObject/ScriptDelegates.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/Epic Games/UE_5.5/Engine/Source/Runtime/CoreUObject/Public/StructUtils/InstancedStruct.h" root0="FORCE_HIGHLIGHTING" />
@@ -147,7 +144,8 @@
       <workItem from="1749403997451" duration="2506000" />
       <workItem from="1757411848572" duration="32347000" />
       <workItem from="1757601784300" duration="785000" />
-      <workItem from="1757602589353" duration="13125000" />
+      <workItem from="1757602589353" duration="14380000" />
+      <workItem from="1757664977157" duration="1433000" />
     </task>
     <servers />
   </component>
