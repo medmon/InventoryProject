@@ -20,7 +20,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://1" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_GridSlot.generated.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_InventoryGrid.gen.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/JJ_Inventory/Intermediate/Build/Win64/UnrealEditor/Inc/JJ_Inventory/UHT/INV_SlottedItem.gen.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -146,7 +146,7 @@
       <workItem from="1757601784300" duration="785000" />
       <workItem from="1757602589353" duration="14380000" />
       <workItem from="1757664977157" duration="1433000" />
-      <workItem from="1757666805520" duration="775000" />
+      <workItem from="1757666805520" duration="3441000" />
     </task>
     <servers />
   </component>

@@ -5,6 +5,8 @@
 
 #include  "INV_ItemFragment.generated.h"
 
+class APlayerController;
+
 USTRUCT(BlueprintType)
 struct FINV_ItemFragment
 {
@@ -22,7 +24,7 @@ struct FINV_ItemFragment
 	
 	
 private:
-	UPROPERTY(EditAnywhere, Category = "Inventory")
+	UPROPERTY(EditAnywhere, Category = "Inventory", meta = ( Categories = "FragmentTags" ))
 	FGameplayTag FragmentTag = FGameplayTag::EmptyTag;
 };
 
@@ -93,5 +95,38 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	int32 StackCount{1};	
 	
+	
+};
+
+USTRUCT(BlueprintType)
+struct FINV_ConsumableFragment : public FINV_ItemFragment
+{
+	GENERATED_BODY()
+
+virtual void OnConsume(APlayerController* PC) {}
+	
+};
+
+USTRUCT(BlueprintType)
+struct FINV_HealthPotionFragment : public FINV_ConsumableFragment
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	float HealAmount = 25.f;
+
+	virtual void OnConsume(APlayerController* PC) override;
+	
+};
+
+USTRUCT(BlueprintType)
+struct FINV_ManaPotionFragment : public FINV_ConsumableFragment
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	float ManaAmount = 50.f;
+
+	virtual void OnConsume(APlayerController* PC) override;
 	
 };
